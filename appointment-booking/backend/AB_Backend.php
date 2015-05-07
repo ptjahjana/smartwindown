@@ -24,6 +24,7 @@ class AB_Backend {
         $this->bookingController      = new AB_BookingController();
         $this->authorizeNetController = new AB_AuthorizeNetController();
         $this->stripeController       = new AB_StripeController();
+        $this->wooCommerceController  = new AB_WooCommerceController();
 
         add_action( 'wp_loaded', array( $this, 'init' ) );
         add_action( 'admin_init', array( $this, 'addTinyMCEPlugin' ) );
@@ -81,8 +82,15 @@ class AB_Backend {
                     array( $this->calendarController, 'index' ) );
                 add_submenu_page( 'ab-system', $appointments, $appointments, 'manage_options', 'ab-appointments',
                     array( $this->appointmentsController, 'index' ) );
-                add_submenu_page( 'ab-system', $staff_members, $staff_members, 'manage_options', 'ab-system-staff',
-                    array( $this->staffController, 'index' ) );
+                if ( is_super_admin() ){
+                    add_submenu_page( 'ab-system', $staff_members, $staff_members, 'manage_options', 'ab-system-staff',
+                        array( $this->staffController, 'index' ) );
+                }else {
+                    if( 1 == get_option( 'ab_settings_allow_staff_members_edit_profile' ) ) {
+                        add_submenu_page( 'ab-system', __( 'Profile', 'ab' ), __( 'Profile', 'ab' ), 'read', 'ab-system-staff',
+                            array( $this->staffController, 'index' ) );
+                    }
+                }
                 add_submenu_page( 'ab-system', $services, $services, 'manage_options', 'ab-services',
                     array( $this->serviceController, 'index' ) );
                 add_submenu_page( 'ab-system', $customers, $customers, 'manage_options', 'ab-customers',

@@ -1,6 +1,6 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
+<tr><td><input value="[[APPOINTMENT_DATE]]" readonly="readonly" onclick="this.select()" /> - <?php _e('date of appointment', 'ab') ?></td></tr>
 <tr><td><input value="[[APPOINTMENT_TIME]]" readonly="readonly" onclick="this.select()" /> - <?php _e('time of appointment', 'ab') ?></td></tr>
-<tr><td><input value="[[APPOINTMENT_DATE]]" readonly="readonly" onclick="this.select()" /> - <?php _e('date of  appointment', 'ab') ?></td></tr>
 <tr><td><input value="[[CANCEL_APPOINTMENT]]" readonly="readonly" onclick="this.select()" /> - <?php _e('cancel appointment link', 'ab') ?></td></tr>
 <tr><td><input value="[[CANCEL_APPOINTMENT_URL]]" readonly="readonly" onclick="this.select()" /> - <?php echo esc_html( __('URL for cancel appointment link (to use inside <a> tag)', 'ab') ) ?></td></tr>
 <tr><td><input value="[[CATEGORY_NAME]]" readonly="readonly" onclick="this.select()" /> - <?php _e('name of category', 'ab') ?></td></tr>

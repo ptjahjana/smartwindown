@@ -251,7 +251,8 @@
                                 var valid           = true,
                                     $select_wrap    = $select_service.parent(),
                                     $time_wrap_from = $select_time_from.parent(),
-                                    $time_wrap_to   = $select_time_to.parent();
+                                    $time_wrap_to   = $select_time_to.parent(),
+                                    $scroll_to      = null;
 
                                 $service_error.hide();
                                 $time_error.hide();
@@ -261,28 +262,42 @@
 
                                 // service validation
                                 if (!$select_service.val()) {
+                                    valid = false;
                                     $select_wrap.addClass('ab-error');
                                     $service_error.show();
-                                    valid = false;
+                                    $scroll_to = $select_wrap;
                                 }
 
                                 // date validation
                                 $date_from.css('borderColor', $date_from.val() ? '' : 'red');
                                 if (!$date_from.val()) {
                                     valid = false;
+                                    if ($scroll_to === null) {
+                                        $scroll_to = $date_from;
+                                    }
                                 }
 
                                 // time validation
                                 if (button_type !== 'mobile' && $select_time_from.val() == $select_time_to.val()) {
+                                    valid = false;
                                     $time_wrap_from.addClass('ab-error');
                                     $time_wrap_to.addClass('ab-error');
                                     $time_error.show();
-                                    valid = false;
+                                    if ($scroll_to === null) {
+                                        $scroll_to = $time_wrap_from;
+                                    }
                                 }
 
                                 // week days
                                 if (!$('.ab-week-day:checked', $container).length) {
                                     valid = false;
+                                    if ($scroll_to === null) {
+                                        $scroll_to = $week_day;
+                                    }
+                                }
+
+                                if ($scroll_to !== null) {
+                                    scrollTo($scroll_to);
                                 }
 
                                 return valid;
@@ -351,6 +366,7 @@
                                         if (Options.skip_service) {
                                             $mobile_prev_step.remove();
                                         }
+                                        scrollTo($container);
                                     }
                                 }
 
@@ -396,6 +412,7 @@
                     }
 
                     $container.html(response.html);
+                    scrollTo($container);
 
                     var $back_button = $('.ab-to-first-step', $container);
 
@@ -790,6 +807,7 @@
                 success     : function (response) {
                     if (response.status == 'success') {
                         $container.html(response.html);
+                        scrollTo($container);
 
                         // Init
                         var $button_next    = $('.ab-to-fourth-step', $container),
@@ -877,26 +895,44 @@
                                     $fields.removeClass('ab-details-error');
 
                                     if (response.length == 0) {
-                                        fourthStep();
+                                        if (Options.woocommerce) {
+                                            wooStep();
+                                        } else {
+                                            fourthStep();
+                                        }
                                     } else {
                                         ladda.stop();
+                                        var $scroll_to = null;
                                         if (response.name) {
                                             $name_error.html(response.name);
                                             $name_field.addClass('ab-details-error');
+                                            $scroll_to = $name_field;
                                         }
                                         if (response.phone) {
                                             $phone_error.html(response.phone);
                                             $phone_field.addClass('ab-details-error');
+                                            if ($scroll_to === null) {
+                                                $scroll_to = $phone_field;
+                                            }
                                         }
                                         if (response.email) {
                                             $email_error.html(response.email);
                                             $email_field.addClass('ab-details-error');
+                                            if ($scroll_to === null) {
+                                                $scroll_to = $email_field;
+                                            }
                                         }
                                         if (response.custom_fields) {
                                             $.each(response.custom_fields, function(key, value) {
                                                 $('.' + key + '-error', $container).html(value);
                                                 $('[name=' + key + ']', $container).addClass('ab-details-error');
+                                                if ($scroll_to === null) {
+                                                    $scroll_to = $('[name=' + key + ']', $container);
+                                                }
                                             });
+                                        }
+                                        if ($scroll_to !== null) {
+                                            scrollTo($scroll_to);
                                         }
                                     }
                                 }
@@ -915,13 +951,38 @@
         }
 
         //
-        function fourthStep() {
+        function wooStep(){
+            var data = {
+                action  : 'ab_add_to_woocommerce_cart',
+                form_id : Options.form_id
+            };
             $.ajax({
+                type        : 'POST',
                 url         : Options.ajaxurl,
-                data        : { action: 'ab_render_payment', form_id: Options.form_id },
+                data        : data,
+                dataType    : 'json',
                 xhrFields   : { withCredentials: true },
                 crossDomain : 'withCredentials' in new XMLHttpRequest(),
                 success     : function (response) {
+                    // The session doesn't contain data or payment is disabled in Admin Settings
+                    if (response.status == 'no-data') {
+                        save();
+                    } else if (response.status == 'success') {
+                        window.location.href = Options.woocommerce_cart_url;
+                    }
+                }
+            });
+        }
+
+        //
+        function fourthStep() {
+            $.ajax({
+                url        : Options.ajaxurl,
+                data       : {action: 'ab_render_payment', form_id: Options.form_id},
+                dataType   : 'json',
+                xhrFields  : {withCredentials: true},
+                crossDomain: 'withCredentials' in new XMLHttpRequest(),
+                success    : function (response) {
 
                     // The session doesn't contain data or payment is disabled in Admin Settings
                     if (response.status == 'no-data') {
@@ -929,32 +990,28 @@
 
                     } else {
                         $container.html(response.html);
+                        scrollTo($container);
 
                         if (Options.is_cancelled) {
-                            $('html, body')
-                                .animate({
-                                    scrollTop: $('#ab-booking-form-' + Options.form_id).offset().top - 65
-                            }, 1000);
-
                             Options.is_cancelled = false;
                         }
 
-                        var $local_pay              = $('.ab-local-payment', $container),
-                            $paypal_pay             = $('.ab-paypal-payment', $container),
-                            $authorizenet_pay       = $('.ab-authorizenet-payment', $container),
-                            $stripe_pay             = $('.ab-stripe-payment', $container),
-                            $local_pay_button       = $('.ab-local-pay-button', $container),
-                            $coupon_pay_button      = $('.ab-coupon-payment-button', $container),
-                            $paypal_pay_button      = $('.ab-paypal-payment-button', $container),
-                            $card_payment_button    = $('.ab-card-payment-button', $container),
-                            $back_button            = $('.ab-to-third-step', $container),
-                            $apply_coupon_button    = $('.apply-coupon', $container),
-                            $coupon_input           = $('input.ab-user-coupon', $container),
-                            $coupon_error           = $('.ab-coupon-error', $container),
-                            $coupon_info_text       = $('.ab-info-text-coupon', $container),
-                            $ab_payment_nav         = $('.ab-payment-nav', $container),
-                            $buttons                = $('.ab-paypal-payment-button,.ab-card-payment-button,form.ab-authorizenet,form.ab-stripe,.ab-local-pay-button', $container)
-                        ;
+                        var $local_pay = $('.ab-local-payment', $container),
+                            $paypal_pay = $('.ab-paypal-payment', $container),
+                            $authorizenet_pay = $('.ab-authorizenet-payment', $container),
+                            $stripe_pay = $('.ab-stripe-payment', $container),
+                            $local_pay_button = $('.ab-local-pay-button', $container),
+                            $coupon_pay_button = $('.ab-coupon-payment-button', $container),
+                            $paypal_pay_button = $('.ab-paypal-payment-button', $container),
+                            $card_payment_button = $('.ab-card-payment-button', $container),
+                            $back_button = $('.ab-to-third-step', $container),
+                            $apply_coupon_button = $('.apply-coupon', $container),
+                            $coupon_input = $('input.ab-user-coupon', $container),
+                            $coupon_error = $('.ab-coupon-error', $container),
+                            $coupon_info_text = $('.ab-info-text-coupon', $container),
+                            $ab_payment_nav = $('.ab-payment-nav', $container),
+                            $buttons = $('.ab-paypal-payment-button,.ab-card-payment-button,form.ab-authorizenet,form.ab-stripe,.ab-local-pay-button', $container)
+                            ;
 
                         $local_pay.on('click', function () {
                             $buttons.hide();
@@ -978,7 +1035,7 @@
                             $('form.ab-stripe', $container).show();
                         });
 
-                        $apply_coupon_button.on('click', function(e) {
+                        $apply_coupon_button.on('click', function (e) {
                             var ladda = Ladda.create(this);
 
                             ladda.start();
@@ -986,9 +1043,9 @@
                             $coupon_input.removeClass('ab-details-error');
 
                             var data = {
-                                action  : 'ab_apply_coupon',
-                                form_id : Options.form_id,
-                                coupon  : $coupon_input.val()
+                                action : 'ab_apply_coupon',
+                                form_id: Options.form_id,
+                                coupon : $coupon_input.val()
                             };
 
                             $.ajax({
@@ -1006,19 +1063,20 @@
                                         if (response.discount == 100) {
                                             $ab_payment_nav.hide();
                                             $buttons.hide();
-                                            $coupon_pay_button.show('fast',function(){
-                                                $('.ab-coupon-free', $container).attr('checked','checked').val(data.coupon);
+                                            $coupon_pay_button.show('fast', function () {
+                                                $('.ab-coupon-free', $container).attr('checked', 'checked').val(data.coupon);
                                             });
                                         }
                                     }
-                                    else if (response.status == 'error'){
+                                    else if (response.status == 'error') {
                                         $coupon_error.html(response.error);
                                         $coupon_input.addClass('ab-details-error');
                                         $coupon_info_text.html(response.text);
+                                        scrollTo($coupon_error);
                                     }
                                     ladda.stop();
                                 },
-                                error: function() {
+                                error      : function () {
                                     ladda.stop();
                                 }
                             });
@@ -1037,20 +1095,20 @@
                                 save();
 
                             } else if ($('.ab-authorizenet-payment', $container).is(':checked') || $('.ab-stripe-payment', $container).is(':checked')) { // handle only if was selected AuthorizeNet payment !
-                                var authorize   = $('.ab-authorizenet-payment', $container).is(':checked');
+                                var authorize = $('.ab-authorizenet-payment', $container).is(':checked');
                                 var card_action = authorize ? 'ab_authorize_net_aim' : 'ab_stripe';
-                                var card_form   = authorize ? 'ab-authorizenet' : 'ab-stripe';
+                                var card_form = authorize ? 'ab-authorizenet' : 'ab-stripe';
 
                                 e.preventDefault();
                                 ladda.start();
 
                                 var data = {
-                                    action          : card_action,
-                                    ab_card_number  : $('.' + card_form + ' input[name="ab_card_number"]', $container).val(),
-                                    ab_card_code    : $('.' + card_form + ' input[name="ab_card_code"]', $container).val(),
-                                    ab_card_month   : $('.' + card_form + ' select[name="ab_card_month"]', $container).val(),
-                                    ab_card_year    : $('.' + card_form + ' select[name="ab_card_year"]', $container).val(),
-                                    form_id         : Options.form_id
+                                    action        : card_action,
+                                    ab_card_number: $('.' + card_form + ' input[name="ab_card_number"]', $container).val(),
+                                    ab_card_code  : $('.' + card_form + ' input[name="ab_card_code"]', $container).val(),
+                                    ab_card_month : $('.' + card_form + ' select[name="ab_card_month"]', $container).val(),
+                                    ab_card_year  : $('.' + card_form + ' select[name="ab_card_year"]', $container).val(),
+                                    form_id       : Options.form_id
                                 };
 
                                 $.ajax({
@@ -1063,11 +1121,12 @@
                                         var _response;
                                         try {
                                             _response = JSON.parse(response);
-                                        } catch (e) {}
+                                        } catch (e) {
+                                        }
                                         if (typeof _response === 'object') {
                                             var $response = $.parseJSON(response);
 
-                                            if ($response.error){
+                                            if ($response.error) {
                                                 ladda.stop();
                                                 $('.' + card_form + ' .ab-card-error', $container).text($response.error);
                                             } else {
@@ -1116,13 +1175,7 @@
                                     ? $container.html($response.step + $response.state.success)
                                     : $container.html($response.state.success)
                                 ;
-
-                                if (Options.is_finished) {
-                                    $('html, body')
-                                        .animate({
-                                            scrollTop: $('#ab-booking-form-' + Options.form_id).offset().top - 65
-                                        }, 1000);
-                                }
+                                scrollTo($container);
                             }
 
                             Options.is_finished = false;
@@ -1216,6 +1269,19 @@
                 Options.is_available = !!$response.state;
                 fifthStep();
             });
+        }
+
+        /**
+         * Scroll to element if it is not visible.
+         *
+         * @param $elem
+         */
+        function scrollTo( $elem ) {
+            var elemTop   = $elem.offset().top;
+            var scrollTop = $(window).scrollTop();
+            if (elemTop < $(window).scrollTop() || elemTop > scrollTop + window.innerHeight) {
+                $('html,body').animate({ scrollTop: (elemTop - 24) }, 500);
+            }
         }
     }
 })(jQuery);

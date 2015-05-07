@@ -1,5 +1,5 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
-<form method="post" action="<?php echo add_query_arg( 'type', '_google_calendar' ) ?>" enctype="multipart/form-data" class="ab-settings-form">
+<form method="post" action="<?php echo esc_url( add_query_arg( 'type', '_google_calendar' ) ) ?>" enctype="multipart/form-data" class="ab-settings-form">
 
     <?php if (isset($message_gc)) : ?>
         <div id="message" style="margin: 0px!important;" class="updated below-h2">
@@ -31,7 +31,7 @@
         </tr>
         <tr>
             <td colspan="3">
-                <h4><?php _e( 'Google Calendar', 'ab' ) ?></h4>
+                <div class="ab-payments-title"><?php _e( 'Google Calendar', 'ab' ) ?></div>
             </td>
         </tr>
         <tr>

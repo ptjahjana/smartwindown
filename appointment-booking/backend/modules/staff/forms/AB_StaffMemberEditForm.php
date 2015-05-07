@@ -6,7 +6,8 @@ class AB_StaffMemberEditForm extends AB_StaffMemberForm {
 
     private $errors = array();
 
-    public function configure() {
+    public function configure()
+    {
         $this->setFields( array(
             'wp_user_id',
             'full_name',
@@ -22,11 +23,8 @@ class AB_StaffMemberEditForm extends AB_StaffMemberForm {
      * @param array $post
      * @param array $files
      */
-    public function bind( array $post, array $files = array() ) {
-        if ( isset( $post[ 'wp_user_id' ] ) && ! $post[ 'wp_user_id' ] ) {
-            $post[ 'wp_user_id' ] = null;
-        }
-
+    public function bind( array $post, array $files = array() )
+    {
         parent::bind( $post );
 
         if ( isset ( $files[ 'avatar' ] ) && $files[ 'avatar' ][ 'tmp_name' ] ) {
@@ -48,12 +46,14 @@ class AB_StaffMemberEditForm extends AB_StaffMemberForm {
     /**
      * @return bool|object
      */
-    public function save(){
+    public function save()
+    {
         //verify google calendar
-        if (array_key_exists('google_calendar_id', $this->data) && !empty($this->data['google_calendar_id'])){
+        if ( array_key_exists( 'google_calendar_id', $this->data ) && ! empty( $this->data['google_calendar_id'] ) ) {
             $google = new AB_Google();
-            if ( !$google->loadByStaffId( $this->data[ 'id' ] ) || !$google->validateCalendar( $this->data[ 'google_calendar_id' ] ) ) {
-                $this->errors['google_calendar'] = implode('<br>', $google->getErrors());
+            if ( ! $google->loadByStaffId( $this->data['id'] ) || ! $google->validateCalendar( $this->data['google_calendar_id'] ) ) {
+                $this->errors['google_calendar'] = implode( '<br>', $google->getErrors() );
+
                 return false;
             }
         }

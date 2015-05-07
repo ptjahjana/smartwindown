@@ -13,7 +13,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  */
 class AB_StaffController extends AB_Controller {
 
-    public function index() {
+    protected function getPermissions()
+    {
+        return get_option( 'ab_settings_allow_staff_members_edit_profile' ) ? array( '_this' => 'user' ) : array();
+    }
+
+    public function index()
+    {
         /** @var WP_Locale $wp_locale */
         global $wp_locale;
 
@@ -47,13 +53,17 @@ class AB_StaffController extends AB_Controller {
         ) );
 
         $this->form = new AB_StaffMemberNewForm();
-        $this->collection = $this->getWpdb()->get_results( "SELECT * FROM ab_staff ORDER BY position" );
-        if ( !isset ( $this->active_staff_id ) ) {
+
+        $em = AB_EntityManager::getInstance( 'AB_Staff' );
+        $this->staff_members = is_super_admin()
+            ? $em->findAll( array( 'position' => 'asc' ) )
+            : $em->findBy( array( 'wp_user_id' => get_current_user_id() ) );
+
+        if ( ! isset ( $this->active_staff_id ) ) {
             if ( $this->hasParameter( 'staff_id' ) ) {
                 $this->active_staff_id = $this->getParameter( 'staff_id' );
-            }
-            else {
-                $this->active_staff_id = $this->collection ? $this->collection[0]->id : 0;
+            } else {
+                $this->active_staff_id = ! empty ( $this->staff_members ) ? $this->staff_members[0]->get( 'id' ) : 0;
             }
         }
 
@@ -86,7 +96,8 @@ class AB_StaffController extends AB_Controller {
         $this->render( 'list' );
     }
 
-    public function executeCreateStaff() {
+    public function executeCreateStaff()
+    {
         $this->form = new AB_StaffMemberNewForm();
         $this->form->bind( $this->getPostParameters() );
 
@@ -97,7 +108,8 @@ class AB_StaffController extends AB_Controller {
         exit;
     }
 
-    public function executeUpdateStaffPosition() {
+    public function executeUpdateStaffPosition()
+    {
         $staff_sorts = $this->getParameter( 'position' );
         foreach ( $staff_sorts as $position => $staff_id ) {
             $staff_sort = new AB_Staff();
@@ -107,7 +119,8 @@ class AB_StaffController extends AB_Controller {
         }
     }
 
-    public function executeStaffServices() {
+    public function executeStaffServices()
+    {
         $this->form = new AB_StaffServicesForm();
         $this->form->load( $this->getParameter( 'id' ) );
         $this->staff_id = $this->getParameter( 'id' );
@@ -115,7 +128,8 @@ class AB_StaffController extends AB_Controller {
         exit;
     }
 
-    public function executeStaffSchedule() {
+    public function executeStaffSchedule()
+    {
         $staff = new AB_Staff();
         $staff->load( $this->getParameter( 'id' ) );
         $this->schedule_list = $staff->getScheduleList();
@@ -124,7 +138,8 @@ class AB_StaffController extends AB_Controller {
         exit;
     }
 
-    public function executeStaffScheduleUpdate() {
+    public function executeStaffScheduleUpdate()
+    {
         $this->form = new AB_StaffScheduleForm();
         $this->form->bind( $this->getPostParameters() );
         $this->form->save();
@@ -135,7 +150,8 @@ class AB_StaffController extends AB_Controller {
      *
      * @throws Exception
      */
-    public function executeResetBreaks() {
+    public function executeResetBreaks()
+    {
         $breaks = $this->getParameter( 'breaks' );
 
         // remove all breaks for staff member
@@ -170,7 +186,8 @@ class AB_StaffController extends AB_Controller {
         exit();
     }
 
-    public function executeStaffScheduleHandleBreak() {
+    public function executeStaffScheduleHandleBreak()
+    {
         $start_time    = $this->getParameter( 'start_time' );
         $end_time      = $this->getParameter( 'end_time' );
         $working_start = $this->getParameter( 'working_start' );
@@ -258,21 +275,24 @@ class AB_StaffController extends AB_Controller {
         exit;
     }
 
-    public function executeDeleteStaffScheduleBreak() {
+    public function executeDeleteStaffScheduleBreak()
+    {
         $break = new AB_ScheduleItemBreak();
         $break->load( $this->getParameter( 'id' ) );
         $break->delete();
         exit;
     }
 
-    public function executeStaffServicesUpdate() {
+    public function executeStaffServicesUpdate()
+    {
         $this->form = new AB_StaffServicesForm();
         $this->form->bind( $this->getPostParameters() );
         $this->form->save();
         exit;
     }
 
-    public function executeEditStaff() {
+    public function executeEditStaff()
+    {
         $this->form = new AB_StaffMemberEditForm();
         $this->staff = new AB_Staff();
         $this->staff->load( $this->getParameter( 'id' ) );
@@ -310,7 +330,28 @@ class AB_StaffController extends AB_Controller {
         exit;
     }
 
-    public function updateStaff() {
+    /**
+     * Update staff from POST request.
+     * @see AB_Backend.php
+     */
+    public function updateStaff()
+    {
+        if ( ! is_super_admin() ) {
+            // Check permissions to prevent one staff member from updating profile of another staff member.
+            do {
+                if ( get_option( 'ab_settings_allow_staff_members_edit_profile' ) ) {
+                    $staff = new AB_Staff();
+                    $staff->load( $this->getParameter( 'id' ) );
+                    if ( $staff->get( 'wp_user_id' ) == get_current_user_id() ) {
+                        unset ( $_POST['wp_user_id'] );
+                        break;
+                    }
+                }
+                do_action( 'admin_page_access_denied' );
+                wp_die( __( 'Bookly: You do not have sufficient permissions to access this page.', 'ab' ) );
+            } while ( 0 );
+        }
+
         $form = new AB_StaffMemberEditForm();
         $form->bind( $this->getPostParameters(), $_FILES );
         $result = $form->save();
@@ -318,15 +359,16 @@ class AB_StaffController extends AB_Controller {
         // Set staff id to load the form for.
         $this->active_staff_id = $this->getParameter( 'id' );
 
-        if ($result === false && array_key_exists('google_calendar', $form->getErrors())){
+        if ( $result === false && array_key_exists('google_calendar', $form->getErrors() ) ) {
             $errors = $form->getErrors();
             $_SESSION['google_calendar_error'] = $errors['google_calendar'];
-        }else{
+        } else {
             $_SESSION['was_update'] = true;
         }
     }
 
-    public function executeDeleteStaff() {
+    public function executeDeleteStaff()
+    {
         $staff = new AB_Staff();
         $staff->load( $this->getParameter( 'id' ) );
         $staff->delete();
@@ -336,7 +378,8 @@ class AB_StaffController extends AB_Controller {
         exit;
     }
 
-    public function executeDeleteStaffAvatar() {
+    public function executeDeleteStaffAvatar()
+    {
         $staff = new AB_Staff();
         $staff->load( $this->getParameter( 'id' ) );
         unlink( $staff->get( 'avatar_path' ) );
@@ -346,14 +389,16 @@ class AB_StaffController extends AB_Controller {
         exit;
     }
 
-    public function executeStaffHolidays() {
+    public function executeStaffHolidays()
+    {
         $this->id = $this->getParameter( 'id', 0 );
         $this->holidays = $this->getHolidays( $this->id );
         $this->render('holidays');
         exit;
     }
 
-    public function executeStaffHolidaysUpdate() {
+    public function executeStaffHolidaysUpdate()
+    {
         $id         = $this->getParameter( 'id' );
         $holiday    = $this->getParameter( 'holiday' ) == 'true';
         $repeat     = $this->getParameter( 'repeat' ) == 'true';
@@ -384,15 +429,8 @@ class AB_StaffController extends AB_Controller {
 
     // Protected methods.
 
-    /**
-     * Override parent method to add 'wp_ajax_ab_' prefix
-     * so current 'execute*' methods look nicer.
-     */
-    protected function registerWpActions( $prefix = '' ) {
-        parent::registerWpActions( 'wp_ajax_ab_' );
-    }
-
-    protected function getHolidays($id) {
+    protected function getHolidays( $id )
+    {
         $collection = $this->getWpdb()->get_results( $this->getWpdb()->prepare( "SELECT * FROM ab_holiday WHERE staff_id = %d",  $id ) );
         $holidays = array();
         if ( count( $collection ) ) {
@@ -410,5 +448,76 @@ class AB_StaffController extends AB_Controller {
         }
 
         return json_encode( (object) $holidays );
+    }
+
+    /**
+     * Extend parent method to control access on staff member level.
+     *
+     * @param string $action
+     * @return bool
+     */
+    protected function hasAccess( $action )
+    {
+        if ( parent::hasAccess( $action ) ) {
+            if ( ! is_super_admin() ) {
+                $staff = new AB_Staff();
+
+                switch ( $action ) {
+                    case 'executeEditStaff':
+                    case 'executeDeleteStaffAvatar':
+                    case 'executeStaffServices':
+                    case 'executeStaffSchedule':
+                    case 'executeStaffHolidays':
+                        $staff->load( $this->getParameter( 'id' ) );
+                        break;
+                    case 'executeStaffServicesUpdate':
+                    case 'executeStaffHolidaysUpdate':
+                        $staff->load( $this->getParameter( 'staff_id' ) );
+                        break;
+                    case 'executeStaffScheduleHandleBreak':
+                        $staffScheduleItem = new AB_StaffScheduleItem();
+                        $staffScheduleItem->load( $this->getParameter( 'staff_schedule_item_id' ) );
+                        $staff->load( $staffScheduleItem->get( 'staff_id' ) );
+                        break;
+                    case 'executeDeleteStaffScheduleBreak':
+                        $break = new AB_ScheduleItemBreak();
+                        $break->load( $this->getParameter( 'id' ) );
+                        $staffScheduleItem = new AB_StaffScheduleItem();
+                        $staffScheduleItem->load( $break->get( 'staff_schedule_item_id' ) );
+                        $staff->load( $staffScheduleItem->get( 'staff_id' ) );
+                        break;
+                    case 'executeStaffScheduleUpdate':
+                        if ( $this->hasParameter( 'days' ) ) {
+                            foreach ( $this->getParameter( 'days' ) as $id => $day_index ) {
+                                $staffScheduleItem = new AB_StaffScheduleItem();
+                                $staffScheduleItem->load( $id );
+                                $staff = new AB_Staff();
+                                $staff->load( $staffScheduleItem->get('staff_id') );
+                                if ( $staff->get( 'wp_user_id' ) != get_current_user_id() ) {
+                                    return false;
+                                }
+                            }
+                        }
+                        break;
+                    default:
+                        return false;
+                }
+
+                return $staff->get( 'wp_user_id' ) == get_current_user_id();
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Override parent method to add 'wp_ajax_ab_' prefix
+     * so current 'execute*' methods look nicer.
+     */
+    protected function registerWpActions( $prefix = '' )
+    {
+        parent::registerWpActions( 'wp_ajax_ab_' );
     }
 }

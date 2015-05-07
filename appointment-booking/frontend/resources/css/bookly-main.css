@@ -346,5 +346,8 @@
         .ab-second-step {
             clear: both;
         }
+        .ab-formGroup .ab-formField .ab-formElement {
+            padding: 2px 5px!important;
+        }
     }
 /* </media-query> */

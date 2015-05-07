@@ -135,9 +135,6 @@ abstract class AB_NotificationSender
         $staff_service = new AB_StaffService();
         $staff_service->loadBy( array( 'staff_id' => $staff->get( 'id' ), 'service_id' => $service->get( 'id' ) ) );
 
-        $category = new AB_Category();
-        $category->load( $service->get( 'category_id' ) );
-
         $price = $staff_service->get( 'price' );
         if ( $ca->get( 'coupon_discount' ) ) {
             $coupon = new AB_Coupon();
@@ -148,14 +145,14 @@ abstract class AB_NotificationSender
         $codes = new AB_NotificationCodes();
         $codes->set( 'appointment_datetime', $appointment->get('start_date') );
         $codes->set( 'appointment_token', $ca->get( 'token' ) );
-        $codes->set( 'category_name', $category->get( 'name' ) );
+        $codes->set( 'category_name', $service->getCategoryName() );
         $codes->set( 'client_name', $customer->get( 'name' ) );
         $codes->set( 'client_phone', $customer->get( 'phone' ) );
         $codes->set( 'client_email', $customer->get( 'email' ) );
         $codes->set( 'custom_fields', $ca->getFormattedCustomFields( 'text' ) );
         $codes->set( 'custom_fields_2c', $ca->getFormattedCustomFields( 'html' ) );
         $codes->set( 'number_of_persons', $ca->get( 'number_of_persons' ) );
-        $codes->set( 'service_name', $service->get( 'title' ) != '' ? $service->get( 'title' ) : __( 'Untitled', 'ab' ) );
+        $codes->set( 'service_name', $service->getTitle() );
         $codes->set( 'service_price', $price );
         $codes->set( 'staff_name', $staff->get( 'full_name' ) );
         $codes->set( 'staff_email', $staff->get( 'email' ) );

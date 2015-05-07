@@ -73,7 +73,7 @@
             </label>
         </div>
         <div class="modal-footer">
-            <button type="reset" class="btn ab-no" data-dismiss="modal" aria-hidden="true"><?php _e( 'No, just update here in services','ab' ) ?></button>
+            <button type="reset" class="btn ab-no" data-dismiss="modal" aria-hidden="true"><?php _e( 'No, update just here in services','ab' ) ?></button>
             <button type="submit" class="btn btn-primary ab-yes"><?php _e( 'Yes','ab' ) ?></button>
         </div>
     </div>

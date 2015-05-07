@@ -1,5 +1,5 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
-<form method="post" action="<?php echo add_query_arg( 'type', '_payments' ) ?>" class="ab-settings-form">
+<form method="post" action="<?php echo esc_url( add_query_arg( 'type', '_payments' ) ) ?>" class="ab-settings-form">
     <?php if (isset($message_p)) : ?>
     <div id="message" style="margin: 0px!important;" class="updated below-h2">
         <button type="button" class="close" data-dismiss="alert">&times;</button>

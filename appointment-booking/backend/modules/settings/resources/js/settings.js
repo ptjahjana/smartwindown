@@ -1,7 +1,7 @@
 jQuery(function ($) {
     var $form                = $('#business-hours'),
-        $all_tabs            = $('#ab_settings_company, #ab_settings_payments, #ab_settings_hours, #ab_settings_holidays, #ab_settings_purchase_code, #ab_settings_google_calendar, #ab_settings_general'),
-        $all_forms           = $('#company-form, #payments-form, #hours-form, #holidays-form, #purchase-code-form, #general-form, #google-calendar-form'),
+        $all_tabs            = $('#ab_settings_company, #ab_settings_payments, #ab_settings_hours, #ab_settings_holidays, #ab_settings_purchase_code, #ab_settings_google_calendar, #ab_settings_general, #ab_settings_woocommerce'),
+        $all_forms           = $('#company-form, #payments-form, #hours-form, #holidays-form, #purchase-code-form, #general-form, #google-calendar-form, #woocommerce-form'),
         $final_step_url      = $('input[name=ab_settings_final_step_url]'),
         $final_step_url_mode = $('#ab_settings_final_step_url_mode');
 
@@ -90,6 +90,10 @@ jQuery(function ($) {
     $('#ab_settings_general').on('click', function() {
         $all_forms.addClass('hidden');
         $('#general-form').removeClass('hidden');
+    });
+    $('#ab_settings_woocommerce').on('click', function() {
+        $all_forms.addClass('hidden');
+        $('#woocommerce-form').removeClass('hidden');
     });
     $('#ab_settings_google_calendar').on('click', function() {
         $all_forms.addClass('hidden');

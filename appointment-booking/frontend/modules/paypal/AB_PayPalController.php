@@ -140,32 +140,32 @@ class AB_PayPalController extends AB_Controller {
                         exit ( 0 );
                     }
                     else {
-                        header('Location: ' . add_query_arg( array(
+                        header('Location: ' . wp_sanitize_redirect( add_query_arg( array(
                                 'action' => 'ab-paypal-errorurl',
                                 'ab_fid' => $form_id,
                                 'error_msg' => $response["L_LONGMESSAGE0"]
                             ), AB_CommonUtils::getCurrentPageURL()
-                        ) );
+                        ) ) );
                         exit;
                     }
                 }
                 else {
-                    header('Location: ' . add_query_arg( array(
+                    header('Location: ' . wp_sanitize_redirect( add_query_arg( array(
                             'action' => 'ab-paypal-errorurl',
                             'ab_fid' => $form_id,
                             'error_msg' => $response["L_LONGMESSAGE0"]
                         ), AB_CommonUtils::getCurrentPageURL()
-                    ) );
+                    ) ) );
                     exit;
                 }
             }
             else {
-                header('Location: ' . add_query_arg( array(
+                header('Location: ' . wp_sanitize_redirect( add_query_arg( array(
                         'action' => 'ab-paypal-errorurl',
                         'ab_fid' => $form_id,
                         'error_msg' => 'Invalid token provided'
                     ), AB_CommonUtils::getCurrentPageURL()
-                ) );
+                ) ) );
                 exit;
             }
         }

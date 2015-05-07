@@ -225,7 +225,7 @@ class AB_CalendarController extends AB_Controller  {
                         staff.id AS "staff_id",
                         staff.full_name AS "staff_fullname",
                         ss.capacity AS max_capacity,
-                        SUM( ca.number_of_persons ) AS current_capacity,
+                        SUM( ca.number_of_persons ) AS total_number_of_persons,
                         ca.customer_id
                     FROM ab_appointment a
                     LEFT JOIN ab_customer_appointment ca ON ca.appointment_id = a.id
@@ -396,7 +396,7 @@ class AB_CalendarController extends AB_Controller  {
             $appointment_additional_info = $wpdb->get_row( $wpdb->prepare(
                 'SELECT
                   ss.capacity AS max_capacity,
-                  SUM( ca.number_of_persons ) AS current_capacity
+                  SUM( ca.number_of_persons ) AS total_number_of_persons
               FROM ab_appointment a
               LEFT JOIN ab_customer_appointment ca ON ca.appointment_id = a.id
               LEFT JOIN ab_staff_service ss ON ss.staff_id = a.staff_id AND ss.service_id = a.service_id
@@ -404,7 +404,7 @@ class AB_CalendarController extends AB_Controller  {
                 $appointment->get('id')
             ) );
 
-            $response[ 'data' ][ 'current_capacity' ] = $appointment_additional_info->current_capacity;
+            $response[ 'data' ][ 'total_number_of_persons' ] = $appointment_additional_info->total_number_of_persons;
             $response[ 'data' ][ 'max_capacity' ] = $appointment_additional_info->max_capacity;
 
             $em = AB_EntityManager::getInstance( 'AB_CustomerAppointment' );
@@ -663,7 +663,7 @@ class AB_CalendarController extends AB_Controller  {
             }
         }
         else {
-            $desc[] = '<div class="wc-notes">' . __( 'Signed up', 'ab' ) . ' ' . $appointment->current_capacity . '</div>';
+            $desc[] = '<div class="wc-notes">' . __( 'Signed up', 'ab' ) . ' ' . $appointment->total_number_of_persons . '</div>';
             $desc[] = '<div class="wc-notes">' . __( 'Capacity', 'ab' ) . ' ' . $appointment->max_capacity . '</div>';
         }
 

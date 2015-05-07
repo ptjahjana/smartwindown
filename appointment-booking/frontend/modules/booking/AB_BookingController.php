@@ -21,13 +21,9 @@ class AB_BookingController extends AB_Controller
      */
     public function renderShortCode( $attributes )
     {
-        static $assets_printed = false;
+        $this->print_assets = ! wp_script_is( 'bookly', 'done' );
 
-        $assets = '';
-
-        if ( !$assets_printed ) {
-            $assets_printed = true;
-
+        if ( $this->print_assets ) {
             ob_start();
 
             // The styles and scripts are registered in AB_Frontend.php
@@ -125,9 +121,15 @@ class AB_BookingController extends AB_Controller
 
             $this->_prepareProgressTracker( 1, $userData->getServicePrice() );
             $this->info_text = nl2br( get_option( 'ab_appearance_text_info_first_step' ) );
+            // Prepare week days that need to be checked.
+            $days_checked = $userData->get( 'days' );
+            if ( empty( $days_checked ) ) {
+                // Check all available days.
+                $days_checked = array_keys( $this->work_day_time_data['available_days'] );
+            }
             $response = array(
                 'status'     => 'success',
-                'html'       => $this->render( '1_service', array( 'userData' => $userData ), false ),
+                'html'       => $this->render( '1_service', array( 'userData' => $userData, 'days_checked' => $days_checked ), false ),
                 'categories' => $configuration->getCategories(),
                 'staff'      => $configuration->getStaff(),
                 'services'   => $configuration->getServices(),
@@ -497,20 +499,23 @@ class AB_BookingController extends AB_Controller
                 $appointment->handleGoogleCalendar();
             }
 
-            if ( get_option( 'ab_settings_cancel_page_url' ) ) {
-                wp_redirect( get_option( 'ab_settings_cancel_page_url' ) );
+            if ( $this->url = get_option( 'ab_settings_cancel_page_url' ) ) {
+                wp_redirect( $this->url );
+                $this->render( 'cancel_appointment' );
+
                 exit ( 0 );
             }
         }
 
-        $url = home_url();
+        $this->url = home_url();
         if ( isset ( $_SERVER['HTTP_REFERER'] ) ) {
-            if ( parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ) == parse_url( $url, PHP_URL_HOST ) ) {
+            if ( parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ) == parse_url( $this->url, PHP_URL_HOST ) ) {
                 // Redirect back if user came from our site.
-                $url = $_SERVER['HTTP_REFERER'];
+                $this->url = $_SERVER['HTTP_REFERER'];
             }
         }
-        wp_redirect( $url );
+        wp_redirect( $this->url );
+        $this->render( 'cancel_appointment' );
 
         exit ( 0 );
     }
@@ -609,7 +614,7 @@ class AB_BookingController extends AB_Controller
     private function _prepareInfoText( $booking_step, $userData, $preset_price = null )
     {
         $service = $userData->getService();
-        $category_name = $userData->getCategoryName();
+        $category_name = $service->getCategoryName();
         $staff_name = $userData->getStaffName();
         $price = ($preset_price === null)? $userData->getServicePrice() : $preset_price;
         $number_of_persons = $userData->get('number_of_persons');

@@ -42,152 +42,49 @@ class AB_CommonUtils {
      * @return string
      */
     public static function formatPrice( $price ) {
-        $result = '';
-        switch (get_option('ab_paypal_currency')) {
-            case 'AUD' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = 'A$' . $price;
-                break;
-            case 'BRL' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = 'R$ ' . $price;
-                break;
-            case 'CAD' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = 'C$' . $price;
-                break;
-            case 'CHF' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' CHF';
-                break;
-            case 'CLP' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = 'CLP $' . $price;
-                break;
-            case 'COP' :
-                $price  = number_format_i18n( floatval($price) );
-                $result = '$' . $price . ' COP';
-                break;
-            case 'CZK' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' Kč';
-                break;
-            case 'DKK' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' kr';
-                break;
-            case 'EUR' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = '€' . $price;
-                break;
-            case 'GBP' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = '£' . $price;
-                break;
-            case 'GTQ' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = 'Q' . $price;
-                break;
-            case 'HKD' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' $';
-                break;
-            case 'HUF' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' Ft';
-                break;
-            case 'IDR' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' Rp';
-                break;
-            case 'INR' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' ₹';
-                break;
-            case 'ILS' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' ₪';
-                break;
-            case 'JPY' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = '¥' . $price;
-                break;
-            case 'KRW' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' ₩';
-                break;
-            case 'MXN' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' $';
-                break;
-            case 'MYR' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' RM';
-                break;
-            case 'NOK' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' kr';
-                break;
-            case 'NZD' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' $';
-                break;
-            case 'PHP' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' ₱';
-                break;
-            case 'PLN' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' zł';
-                break;
-            case 'RON' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' lei';
-                break;
-            case 'RMB' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' ¥';
-                break;
-            case 'RUB' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' руб.';
-                break;
-            case 'SAR':
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' SAR';
-                break;
-            case 'SEK' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' kr';
-                break;
-            case 'SGD' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' $';
-                break;
-            case 'THB' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' ฿';
-                break;
-            case 'TRY' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' TL';
-                break;
-            case 'TWD' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = $price . ' NT$';
-                break;
-            case 'USD' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = '$' . $price;
-                break;
-            case 'ZAR' :
-                $price  = number_format_i18n( floatval($price), 2 );
-                $result = 'R ' . $price;
-                break;
-        } // switch
+        $price  = floatval( $price );
+        switch ( get_option( 'ab_paypal_currency' ) ) {
+            case 'AUD' : return 'A$' . number_format_i18n( $price, 2 );
+            case 'BRL' : return 'R$ ' . number_format_i18n( $price, 2 );
+            case 'CAD' : return 'C$' . number_format_i18n( $price, 2 );
+            case 'CHF' : return number_format_i18n( $price, 2 ) . ' CHF';
+            case 'CLP' : return 'CLP $' . number_format_i18n( $price, 2 );
+            case 'COP' : return '$' . number_format_i18n( $price ) . ' COP';
+            case 'CZK' : return number_format_i18n( $price, 2 ) . ' Kč';
+            case 'DKK' : return number_format_i18n( $price, 2 ) . ' kr';
+            case 'EUR' : return '€' . number_format_i18n( $price, 2 );
+            case 'GBP' : return '£' . number_format_i18n( $price, 2 );
+            case 'GTQ' : return 'Q' . number_format_i18n( $price, 2 );
+            case 'HKD' : return number_format_i18n( $price, 2 ) . ' $';
+            case 'HUF' : return number_format_i18n( $price, 2 ) . ' Ft';
+            case 'IDR' : return number_format_i18n( $price, 2 ) . ' Rp';
+            case 'INR' : return number_format_i18n( $price, 2 ) . ' ₹';
+            case 'ILS' : return number_format_i18n( $price, 2 ) . ' ₪';
+            case 'JPY' : return '¥' . number_format_i18n( $price, 2 );
+            case 'KRW' : return number_format_i18n( $price, 2 ) . ' ₩';
+            case 'KZT' : return number_format_i18n( $price, 2 ) . ' тг.';
+            case 'MXN' : return number_format_i18n( $price, 2 ) . ' $';
+            case 'MYR' : return number_format_i18n( $price, 2 ) . ' RM';
+            case 'NOK' : return number_format_i18n( $price, 2 ) . ' kr';
+            case 'NZD' : return number_format_i18n( $price, 2 ) . ' $';
+            case 'PHP' : return number_format_i18n( $price, 2 ) . ' ₱';
+            case 'PLN' : return number_format_i18n( $price, 2 ) . ' zł';
+            case 'RON' : return number_format_i18n( $price, 2 ) . ' lei';
+            case 'RMB' : return number_format_i18n( $price, 2 ) . ' ¥';
+            case 'RUB' : return number_format_i18n( $price, 2 ) . ' руб.';
+            case 'SAR' : return number_format_i18n( $price, 2 ) . ' SAR';
+            case 'SEK' : return number_format_i18n( $price, 2 ) . ' kr';
+            case 'SGD' : return number_format_i18n( $price, 2 ) . ' $';
+            case 'THB' : return number_format_i18n( $price, 2 ) . ' ฿';
+            case 'TRY' : return number_format_i18n( $price, 2 ) . ' TL';
+            case 'TWD' : return number_format_i18n( $price, 2 ) . ' NT$';
+            case 'UGX' : return 'UGX ' . number_format_i18n( $price );
+            case 'USD' : return '$' . number_format_i18n( $price, 2 );
+            case 'ZAR' : return 'R ' . number_format_i18n( $price, 2 );
+        }
 
-        return $result;
-    } // formatPrice
+        return number_format_i18n( $price, 2 );
+    }
 
     /**
      * @return string

@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Bookly v5.3\n"
+"Project-Id-Version: Bookly v6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-16 16:55+0200\n"
-"PO-Revision-Date: 2015-04-16 16:56+0200\n"
+"POT-Creation-Date: 2015-05-05 16:19+0200\n"
+"PO-Revision-Date: 2015-05-05 16:19+0200\n"
 "Last-Translator: Peter Massar <Hello@marpet.nu>\n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -40,7 +40,7 @@ msgstr "Medewerkers"
 # @ ab
 #: ../backend/AB_Backend.php:64
 #: ../backend/modules/service/templates/index.php:2
-#: ../backend/modules/staff/templates/edit.php:33
+#: ../backend/modules/staff/templates/edit.php:35
 msgid "Services"
 msgstr "Activiteiten"
 
@@ -61,7 +61,7 @@ msgstr "Notificaties"
 #: ../backend/AB_Backend.php:67
 #: ../backend/modules/customer/templates/index.php:30
 #: ../backend/modules/payment/templates/index.php:10
-#: ../backend/modules/settings/templates/index.php:8
+#: ../backend/modules/settings/templates/index.php:9
 msgid "Payments"
 msgstr "Betalingen"
 
@@ -87,6 +87,10 @@ msgstr "Kortingsbonnen"
 #: ../backend/AB_Backend.php:71
 msgid "Custom fields"
 msgstr "Aangepaste velden"
+
+#: ../backend/AB_Backend.php:90 ../backend/modules/staff/templates/list.php:6
+msgid "Profile"
+msgstr "Profiel"
 
 # @ ab
 #: ../backend/modules/appearance/AB_AppearanceController.php:59
@@ -242,9 +246,9 @@ msgstr "Creditcard beveiligingscode"
 #: ../backend/modules/settings/AB_SettingsController.php:44
 #: ../backend/modules/settings/AB_SettingsController.php:50
 #: ../backend/modules/settings/AB_SettingsController.php:55
-#: ../backend/modules/settings/AB_SettingsController.php:68
-#: ../backend/modules/settings/AB_SettingsController.php:76
-#: ../backend/modules/settings/AB_SettingsController.php:84
+#: ../backend/modules/settings/AB_SettingsController.php:69
+#: ../backend/modules/settings/AB_SettingsController.php:78
+#: ../backend/modules/settings/AB_SettingsController.php:86
 #: ../backend/modules/staff/templates/edit.php:13
 msgid "Settings saved."
 msgstr "Instellingen opgeslagen."
@@ -272,7 +276,7 @@ msgstr "Klik op de onderstreepte tekst om te wijzigen."
 
 # @ ab
 #: ../backend/modules/appearance/templates/index.php:97
-#: ../backend/modules/staff/templates/edit.php:148
+#: ../backend/modules/staff/templates/edit.php:152
 #: ../backend/modules/staff/templates/schedule.php:100
 #: ../backend/modules/staff/templates/services.php:90
 msgid "Update"
@@ -284,7 +288,7 @@ msgstr "Bijwerken"
 #: ../backend/modules/notifications/templates/index.php:61
 #: ../backend/modules/settings/templates/_hoursForm.php:27
 #: ../backend/modules/settings/templates/_paymentsForm.php:126
-#: ../backend/modules/staff/templates/edit.php:149
+#: ../backend/modules/staff/templates/edit.php:153
 #: ../backend/modules/staff/templates/schedule.php:102
 #: ../backend/modules/staff/templates/services.php:91
 msgid "Reset"
@@ -344,7 +348,7 @@ msgstr "Standaard bereik"
 #: ../backend/modules/payment/AB_PaymentController.php:122
 #: ../backend/modules/service/templates/index.php:40
 #: ../backend/modules/staff/templates/_break.php:17
-#: ../backend/modules/staff/templates/new.php:29
+#: ../backend/modules/staff/templates/new.php:31
 #: ../backend/modules/staff/templates/schedule.php:81
 #: ../backend/modules/tinymce/templates/appointment_list.php:44
 #: ../frontend/modules/customer_profile/templates/short_code.php:40
@@ -382,8 +386,8 @@ msgstr "Medewerker"
 #: ../backend/modules/calendar/templates/_appointment_form.php:16
 #: ../backend/modules/payment/templates/index.php:72
 #: ../backend/modules/tinymce/templates/appointment_list.php:14
-#: ../installer.php:112 ../installer.php:118 ../updates.php:319
-#: ../updates.php:325
+#: ../installer.php:114 ../installer.php:120 ../lib/AB_Google.php:150
+#: ../updates.php:331 ../updates.php:337
 msgid "Service"
 msgstr "Activiteit"
 
@@ -416,8 +420,8 @@ msgstr "Klant"
 #: ../backend/modules/customer/templates/index.php:25
 #: ../backend/modules/customer/templates/ng-new_customer_dialog.php:32
 #: ../backend/modules/settings/templates/_companyForm.php:34
-#: ../backend/modules/staff/templates/edit.php:94 ../installer.php:124
-#: ../lib/AB_Google.php:154 ../updates.php:331
+#: ../backend/modules/staff/templates/edit.php:98 ../installer.php:126
+#: ../lib/AB_Google.php:157 ../updates.php:343
 msgid "Phone"
 msgstr "Telefoon"
 
@@ -426,8 +430,8 @@ msgstr "Telefoon"
 #: ../backend/modules/calendar/AB_CalendarController.php:75
 #: ../backend/modules/customer/templates/index.php:26
 #: ../backend/modules/customer/templates/ng-new_customer_dialog.php:36
-#: ../backend/modules/staff/templates/edit.php:86 ../installer.php:125
-#: ../lib/AB_Google.php:153 ../updates.php:332
+#: ../backend/modules/staff/templates/edit.php:90 ../installer.php:127
+#: ../lib/AB_Google.php:156 ../updates.php:344
 msgid "Email"
 msgstr "E-mail"
 
@@ -522,7 +526,7 @@ msgstr "Capaciteit"
 
 #: ../backend/modules/calendar/AB_CalendarController.php:532
 #: ../backend/modules/calendar/AB_CalendarController.php:674
-#: ../lib/AB_NotificationSender.php:158
+#: ../lib/entities/AB_Service.php:36
 msgid "Untitled"
 msgstr "Zonder titel"
 
@@ -616,12 +620,12 @@ msgstr ""
 #: ../backend/modules/calendar/templates/_appointment_form.php:102
 #: ../backend/modules/custom_fields/templates/index.php:16
 #: ../backend/modules/settings/templates/_companyForm.php:44
-#: ../backend/modules/settings/templates/_generalForm.php:153
-#: ../backend/modules/settings/templates/_googleCalendarForm.php:118
+#: ../backend/modules/settings/templates/_generalForm.php:171
+#: ../backend/modules/settings/templates/_googleCalendarForm.php:133
 #: ../backend/modules/settings/templates/_hoursForm.php:26
 #: ../backend/modules/settings/templates/_paymentsForm.php:125
-#: ../backend/modules/settings/templates/_purchaseCodeForm.php:29
-#: ../backend/modules/settings/templates/_woocommerce.php:32
+#: ../backend/modules/settings/templates/_purchaseCodeForm.php:28
+#: ../backend/modules/settings/templates/_woocommerce.php:72
 msgid "Save"
 msgstr "Opslaan"
 
@@ -630,8 +634,8 @@ msgid "Participants"
 msgstr "Deelnemers"
 
 #: ../backend/modules/calendar/templates/_custom_fields_form.php:13
-#: ../backend/modules/tinymce/templates/popup.php:41 ../installer.php:128
-#: ../updates.php:63
+#: ../backend/modules/tinymce/templates/popup.php:41 ../installer.php:130
+#: ../updates.php:75
 msgid "Number of persons"
 msgstr "Aantal personen"
 
@@ -720,10 +724,10 @@ msgstr "Keuzelijst"
 # @ ab
 #: ../backend/modules/custom_fields/templates/index.php:18
 #: ../backend/modules/settings/templates/_companyForm.php:45
-#: ../backend/modules/settings/templates/_generalForm.php:154
-#: ../backend/modules/settings/templates/_googleCalendarForm.php:119
-#: ../backend/modules/settings/templates/_purchaseCodeForm.php:30
-#: ../backend/modules/settings/templates/_woocommerce.php:33
+#: ../backend/modules/settings/templates/_generalForm.php:172
+#: ../backend/modules/settings/templates/_googleCalendarForm.php:134
+#: ../backend/modules/settings/templates/_purchaseCodeForm.php:29
+#: ../backend/modules/settings/templates/_woocommerce.php:73
 msgid " Reset "
 msgstr "Ongedaan maken"
 
@@ -803,22 +807,22 @@ msgstr "Zoek versneld klant"
 # @ ab
 #: ../backend/modules/customer/templates/index.php:23
 #: ../backend/modules/customer/templates/ng-new_customer_dialog.php:27
-#: ../installer.php:123 ../lib/AB_Google.php:152 ../updates.php:330
+#: ../installer.php:125 ../lib/AB_Google.php:155 ../updates.php:342
 msgid "Name"
 msgstr "Naam"
 
 # @ ab
 #: ../backend/modules/customer/templates/index.php:24
 #: ../backend/modules/customer/templates/ng-new_customer_dialog.php:16
-#: ../backend/modules/staff/templates/edit.php:45
-#: ../backend/modules/staff/templates/new.php:10
+#: ../backend/modules/staff/templates/edit.php:48
+#: ../backend/modules/staff/templates/new.php:12
 msgid "User"
 msgstr "Gebruiker"
 
 # @ default
 #: ../backend/modules/customer/templates/index.php:27
 #: ../backend/modules/customer/templates/ng-new_customer_dialog.php:40
-#: ../installer.php:157
+#: ../installer.php:159
 msgid "Notes"
 msgstr "Notities"
 
@@ -845,8 +849,38 @@ msgid "No customers"
 msgstr "Geen klanten"
 
 # @ ab
+#: ../backend/modules/customer/templates/index.php:89
+msgid "Delete customer"
+msgstr "Verwijder klant"
+
+#: ../backend/modules/customer/templates/index.php:92
+msgid ""
+"You are about to delete a customer which may have a WordPress account "
+"associated to them. Do you want to delete that account too (if there is one)?"
+msgstr ""
+"Je bent op het punt om een klant die een WordPress rekening gekoppeld aan "
+"hen kan hebben verwijderen. Wilt u die account te verwijderen (als er één "
+"is)?"
+
+#: ../backend/modules/customer/templates/index.php:94
+#: ../backend/modules/service/templates/index.php:72
+msgid "Remember my choice"
+msgstr "Mijn keuze onthouden"
+
+# @ ab
+#: ../backend/modules/customer/templates/index.php:98
+msgid "No, delete just the customer"
+msgstr "Nee, verwijder alleen de klant"
+
+#: ../backend/modules/customer/templates/index.php:99
+#: ../backend/modules/service/templates/index.php:77
+#: ../backend/modules/tinymce/templates/appointment_list.php:54
+msgid "Yes"
+msgstr "Ja"
+
+# @ ab
 #: ../backend/modules/customer/templates/ng-new_customer_dialog.php:3
-#: ../installer.php:51 ../updates.php:41
+#: ../installer.php:51 ../updates.php:53
 msgid "New customer"
 msgstr "Nieuwe klant"
 
@@ -923,13 +957,15 @@ msgstr "Stuur een kopie naar beheerders"
 
 # @ ab
 #: ../backend/modules/notifications/templates/_codes.php:2
-msgid "time of appointment"
-msgstr "tijd van uw afspraak"
+#: ../backend/modules/settings/templates/_woocommerce.php:64
+msgid "date of appointment"
+msgstr "Datum in functie"
 
 # @ ab
 #: ../backend/modules/notifications/templates/_codes.php:3
-msgid "date of  appointment"
-msgstr "Datum in functie"
+#: ../backend/modules/settings/templates/_woocommerce.php:65
+msgid "time of appointment"
+msgstr "tijd van uw afspraak"
 
 #: ../backend/modules/notifications/templates/_codes.php:4
 msgid "cancel appointment link"
@@ -942,6 +978,7 @@ msgstr ""
 
 # @ ab
 #: ../backend/modules/notifications/templates/_codes.php:6
+#: ../backend/modules/settings/templates/_woocommerce.php:66
 msgid "name of category"
 msgstr "naam van categorie"
 
@@ -1008,11 +1045,13 @@ msgstr "aantal  personen"
 
 # @ ab
 #: ../backend/modules/notifications/templates/_codes.php:18
+#: ../backend/modules/settings/templates/_woocommerce.php:67
 msgid "name of service"
 msgstr "Benaming van de activiteit:"
 
 # @ ab
 #: ../backend/modules/notifications/templates/_codes.php:19
+#: ../backend/modules/settings/templates/_woocommerce.php:68
 msgid "price of service"
 msgstr "prijs van de activiteit"
 
@@ -1022,6 +1061,7 @@ msgid "email of staff"
 msgstr "e-mail van medewerker"
 
 #: ../backend/modules/notifications/templates/_codes.php:21
+#: ../backend/modules/settings/templates/_woocommerce.php:69
 msgid "name of staff"
 msgstr "naam van personeel"
 
@@ -1104,8 +1144,8 @@ msgid "No payments for selected period and criteria."
 msgstr "Geen betalingen voor de geselecteerde periode en criteria."
 
 #: ../backend/modules/payment/templates/_body.php:20
-#: ../backend/modules/payment/templates/index.php:74 ../installer.php:126
-#: ../updates.php:176
+#: ../backend/modules/payment/templates/index.php:74 ../installer.php:128
+#: ../updates.php:188
 msgid "Coupon"
 msgstr "Kortingscode"
 
@@ -1204,18 +1244,9 @@ msgstr ""
 "U zal een diensten-instelling wijzigen welke ook apart geconfigureerd is "
 "voor elke medewerker. Wenst u dit ook in medeweker-instellingen bijwerken?"
 
-#: ../backend/modules/service/templates/index.php:72
-msgid "Remember my choice"
-msgstr "Mijn keuze onthouden"
-
 #: ../backend/modules/service/templates/index.php:76
-msgid "No, just update here in services"
+msgid "No, update just here in services"
 msgstr "Nee, werk enkel in activiteiten bij"
-
-#: ../backend/modules/service/templates/index.php:77
-#: ../backend/modules/tinymce/templates/appointment_list.php:54
-msgid "Yes"
-msgstr "Ja"
 
 # @ default
 #: ../backend/modules/service/templates/list.php:8
@@ -1239,19 +1270,19 @@ msgstr "Medewerker"
 # @ default
 #: ../backend/modules/service/templates/list.php:14
 #: ../backend/modules/tinymce/templates/appointment_list.php:8
-#: ../installer.php:117 ../updates.php:324
+#: ../installer.php:119 ../updates.php:336
 msgid "Category"
 msgstr "Categorie"
 
 # @ ab
 #: ../backend/modules/settings/AB_SettingsController.php:33
-#: ../backend/modules/staff/AB_StaffController.php:43
+#: ../backend/modules/staff/AB_StaffController.php:49
 msgid "We are not working on this day"
 msgstr "Wij zijn niet aanwezig op deze dag"
 
 # @ ab
 #: ../backend/modules/settings/AB_SettingsController.php:34
-#: ../backend/modules/staff/AB_StaffController.php:44
+#: ../backend/modules/staff/AB_StaffController.php:50
 msgid "Repeat every year"
 msgstr "Herhaal ieder jaar"
 
@@ -1310,6 +1341,7 @@ msgstr "Minimum tijdsduur voorafgaand aan een afspraak"
 #: ../backend/modules/settings/templates/_generalForm.php:78
 #: ../backend/modules/settings/templates/_generalForm.php:98
 #: ../backend/modules/settings/templates/_generalForm.php:134
+#: ../backend/modules/settings/templates/_generalForm.php:154
 #: ../backend/modules/settings/templates/_googleCalendarForm.php:85
 #: ../backend/modules/settings/templates/_googleCalendarForm.php:103
 #: ../backend/modules/settings/templates/_paymentsForm.php:24
@@ -1317,7 +1349,7 @@ msgstr "Minimum tijdsduur voorafgaand aan een afspraak"
 #: ../backend/modules/settings/templates/_paymentsForm.php:48
 #: ../backend/modules/settings/templates/_paymentsForm.php:82
 #: ../backend/modules/settings/templates/_paymentsForm.php:113
-#: ../backend/modules/settings/templates/_woocommerce.php:11
+#: ../backend/modules/settings/templates/_woocommerce.php:34
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
@@ -1348,11 +1380,12 @@ msgstr "Weergave vrije tijdsblok in tijdzone van de klant"
 #: ../backend/modules/settings/templates/_generalForm.php:78
 #: ../backend/modules/settings/templates/_generalForm.php:98
 #: ../backend/modules/settings/templates/_generalForm.php:134
+#: ../backend/modules/settings/templates/_generalForm.php:154
 #: ../backend/modules/settings/templates/_googleCalendarForm.php:85
 #: ../backend/modules/settings/templates/_paymentsForm.php:24
 #: ../backend/modules/settings/templates/_paymentsForm.php:36
 #: ../backend/modules/settings/templates/_paymentsForm.php:113
-#: ../backend/modules/settings/templates/_woocommerce.php:11
+#: ../backend/modules/settings/templates/_woocommerce.php:34
 msgid "Enabled"
 msgstr "Ingeschakeld"
 
@@ -1365,8 +1398,15 @@ msgid "Create WordPress user account for customers"
 msgstr "Maak WordPress gebruikersaccount voor klanten"
 
 #: ../backend/modules/settings/templates/_generalForm.php:108
-msgid "Create WordPress user account for customers."
-msgstr "Maak WordPress gebruikersaccount voor klanten."
+msgid ""
+"If this setting is enabled then Bookly will be creating WordPress user "
+"accounts for all new customers. If the user is logged in then the new "
+"customer will be associated with the existing user account."
+msgstr ""
+"Als deze instelling is ingeschakeld dan Bookly zal het creëren van WordPress "
+"gebruikersaccounts voor alle nieuwe klanten. Als de gebruiker is ingelogd, "
+"dan is de nieuwe klant zal worden gekoppeld aan de bestaande "
+"gebruikersaccount."
 
 #: ../backend/modules/settings/templates/_generalForm.php:114
 msgid "Cancel appointment page URL"
@@ -1398,8 +1438,23 @@ msgstr ""
 "een succesvolle afspraak gemaakt te hebben. Indien uitgeschakeld zal de "
 "standaard stap 5 weergegeven worden."
 
+#: ../backend/modules/settings/templates/_generalForm.php:151
+msgid "Allow staff members to edit their profiles"
+msgstr "Laat medewerkers op hun profiel bewerken"
+
+#: ../backend/modules/settings/templates/_generalForm.php:164
+msgid ""
+"If this option is enabled then all staff members who are associated with "
+"WordPress users will be able to edit their own profiles, services, schedule "
+"and days off."
+msgstr ""
+"Als deze optie wordt vervolgens ingeschakeld alle medewerkers die worden "
+"geassocieerd met WordPress gebruikers zullen in staat zijn om hun eigen "
+"profiel, diensten, planning en vrije dagen te bewerken."
+
 #: ../backend/modules/settings/templates/_googleCalendarForm.php:15
 #: ../backend/modules/settings/templates/_purchaseCodeForm.php:14
+#: ../backend/modules/settings/templates/_woocommerce.php:9
 msgid "Instructions"
 msgstr "Instructies"
 
@@ -1517,6 +1572,14 @@ msgstr ""
 "gebeurtenissen. U kunt het aantal opgehaalde gebeurtenissen hier beperken. "
 "Dit werkt alleen als 2 manier synchronisatie is ingeschakeld."
 
+#: ../backend/modules/settings/templates/_googleCalendarForm.php:117
+msgid "Google Calendar event title"
+msgstr ""
+
+#: ../backend/modules/settings/templates/_googleCalendarForm.php:125
+msgid "Google Calendar event title. Available:"
+msgstr ""
+
 # @ ab
 #: ../backend/modules/settings/templates/_paymentsForm.php:11
 msgid "Currency"
@@ -1577,22 +1640,69 @@ msgstr ""
 
 # @ ab
 #: ../backend/modules/settings/templates/_purchaseCodeForm.php:20
-#: ../backend/modules/settings/templates/index.php:11
+#: ../backend/modules/settings/templates/index.php:12
 msgid "Purchase Code"
 msgstr "Aankoop Code"
 
-#: ../backend/modules/settings/templates/_woocommerce.php:6
-#: ../backend/modules/settings/templates/index.php:12
-msgid "Woocommerce"
-msgstr "WooCommerce"
-
-#: ../backend/modules/settings/templates/_woocommerce.php:6
-msgid "No Active"
+#: ../backend/modules/settings/templates/_woocommerce.php:12
+msgid ""
+"You need to install and activate WooCommerce plugin before using the options "
+"below.<br/><br/>Once the plugin is activated do the following steps:"
 msgstr ""
+"U moet installeren en activeren WooCommerce plugin voor het gebruik van de "
+"onderstaande opties.<br/><br/>Zodra de plugin wordt geactiveerd doen de "
+"volgende stappen:"
+
+#: ../backend/modules/settings/templates/_woocommerce.php:15
+msgid "Create a product in WooCommerce that can be placed in cart."
+msgstr ""
+"Maak een product in WooCommerce die in het winkelwagentje geplaatst kunnen "
+"worden."
+
+#: ../backend/modules/settings/templates/_woocommerce.php:16
+msgid "In the form below enable WooCommerce option."
+msgstr "In het onderstaande formulier in te schakelen WooCommerce optie."
+
+#: ../backend/modules/settings/templates/_woocommerce.php:17
+msgid ""
+"Select the product that you created at step 1 in the drop down list of "
+"products."
+msgstr ""
+"Selecteer het product dat u hebt gemaakt bij stap 1 in de drop down lijst "
+"van producten."
 
 #: ../backend/modules/settings/templates/_woocommerce.php:18
+msgid "If needed, edit item data which will be displayed in the cart."
+msgstr ""
+"Indien nodig, bewerken punt gegevens die worden weergegeven in het "
+"winkelwagentje."
+
+#: ../backend/modules/settings/templates/_woocommerce.php:21
+msgid ""
+"Note that once you have enabled WooCommerce option in Bookly the built-in "
+"payment methods will no longer work. All your customers will be redirected "
+"to WooCommerce cart instead of standard payment step."
+msgstr ""
+"Merk op dat als je eenmaal WooCommerce optie hebt ingeschakeld in Bookly de "
+"ingebouwde betaalmethodes zullen niet meer werken. Al uw klanten worden "
+"doorgestuurd naar WooCommerce winkelwagen in plaats van de standaard "
+"betaling stap."
+
+#: ../backend/modules/settings/templates/_woocommerce.php:41
 msgid "Booking product"
-msgstr "Boeking activiteit"
+msgstr "Product voor het boeken"
+
+#: ../backend/modules/settings/templates/_woocommerce.php:53
+msgid "Cart item data"
+msgstr "Winkelwagen artikelgegevens"
+
+#: ../backend/modules/settings/templates/_woocommerce.php:56
+msgid "Enter a name"
+msgstr "Voer een naam"
+
+#: ../backend/modules/settings/templates/_woocommerce.php:61
+msgid "Enter a value"
+msgstr "Voer een waarde"
 
 #: ../backend/modules/settings/templates/admin_notice.php:3
 msgid ""
@@ -1612,15 +1722,15 @@ msgid ""
 "downloaded from Codecanyon (the only channel of Bookly distribution), you "
 "may put your website under significant risk - it is very likely that it "
 "contains a malicious code, a trojan or a backdoor. Please consider buying a "
-"licensed copy of Bookly <a href=\"http://bookly-wp-plugin.com\" target="
+"licensed copy of Bookly <a href=\"http://booking-wp-plugin.com\" target="
 "\"_blank\">here</a>."
 msgstr ""
 "<b>Belangrijke!</b> Wees u ervan bewust dat als uw exemplaar van Bookly was "
 "niet gedownload van Codecanyon (het enige kanaal van Bookly distributie), u "
 "uw website een significant risico loopt - het is zeer waarschijnlijk dat het "
 "kwaadaardige code bevat, een Trojaans paard of een achterpoortje. Overweeg "
-"het kopen van een gelicentieerd exemplaar van Bookly <a href=\"http://bookly."
-"ladela.com\" target=\"_blank\">hier</a>."
+"het kopen van een gelicentieerd exemplaar van Bookly <a href=\"http://"
+"booking-wp-plugin.com\" target=\"_blank\">hier</a>."
 
 #: ../backend/modules/settings/templates/admin_notice.php:5
 msgid "Dismiss"
@@ -1636,33 +1746,38 @@ msgid "Company"
 msgstr "Bedrijfsnaam"
 
 # @ ab
-#: ../backend/modules/settings/templates/index.php:9
+#: ../backend/modules/settings/templates/index.php:10
 msgid "Business hours"
 msgstr "Werk uren"
 
 # @ ab
-#: ../backend/modules/settings/templates/index.php:10
+#: ../backend/modules/settings/templates/index.php:11
 msgid "Holidays"
 msgstr "Vakanties"
 
 # @ ab
-#: ../backend/modules/staff/AB_StaffController.php:182
+#: ../backend/modules/staff/AB_StaffController.php:199
 msgid "The start time must be less than the end one"
 msgstr "De starttijd moet minder zijn dan de eindtijd"
 
 # @ ab
-#: ../backend/modules/staff/AB_StaffController.php:197
+#: ../backend/modules/staff/AB_StaffController.php:214
 msgid "The requested interval is not available"
 msgstr "De gevraagde interval is niet beschikbaar"
 
 # @ ab
-#: ../backend/modules/staff/AB_StaffController.php:253
+#: ../backend/modules/staff/AB_StaffController.php:270
 msgid "Error adding the break interval"
 msgstr "Fout bij toevoegen van de pauze-interval"
 
-#: ../backend/modules/staff/AB_StaffController.php:286
+#: ../backend/modules/staff/AB_StaffController.php:306
 msgid "Calendar ID is not valid."
 msgstr "Kalender ID is niet geldig."
+
+#: ../backend/modules/staff/AB_StaffController.php:351
+#: ../lib/AB_Controller.php:91
+msgid "Bookly: You do not have sufficient permissions to access this page."
+msgstr "Bookly : Je hebt onvoldoende rechten om deze pagina te bekijken."
 
 # @ ab
 #: ../backend/modules/staff/templates/_break.php:12
@@ -1682,62 +1797,62 @@ msgstr "Pauze opslaan"
 msgid "breaks:"
 msgstr "Pauzes."
 
-#: ../backend/modules/staff/templates/edit.php:28
+#: ../backend/modules/staff/templates/edit.php:29
 msgid "Delete this staff member"
 msgstr "Verwijder deze medewerker"
 
 # @ ab
-#: ../backend/modules/staff/templates/edit.php:32 ../installer.php:114
-#: ../updates.php:321
+#: ../backend/modules/staff/templates/edit.php:34 ../installer.php:116
+#: ../updates.php:333
 msgid "Details"
 msgstr "Details"
 
 # @ ab
-#: ../backend/modules/staff/templates/edit.php:34
+#: ../backend/modules/staff/templates/edit.php:36
 msgid "Schedule"
 msgstr "Agenda"
 
 # @ ab
-#: ../backend/modules/staff/templates/edit.php:35
+#: ../backend/modules/staff/templates/edit.php:37
 msgid "Days off"
 msgstr "Vrije dagen"
 
 # @ ab
-#: ../backend/modules/staff/templates/edit.php:48
-#: ../backend/modules/staff/templates/new.php:13
+#: ../backend/modules/staff/templates/edit.php:51
+#: ../backend/modules/staff/templates/new.php:15
 msgid "Select from WP users"
 msgstr "Kies uit WP-gebruikers"
 
 # @ ab
-#: ../backend/modules/staff/templates/edit.php:64
+#: ../backend/modules/staff/templates/edit.php:68
 msgid "Photo"
 msgstr "Foto"
 
 # @ ab
-#: ../backend/modules/staff/templates/edit.php:68
+#: ../backend/modules/staff/templates/edit.php:72
 msgid "Avatar"
 msgstr "Profiel foto"
 
 # @ ab
-#: ../backend/modules/staff/templates/edit.php:69
+#: ../backend/modules/staff/templates/edit.php:73
 msgid "Delete current photo"
 msgstr "Wis huidige foto"
 
 # @ ab
-#: ../backend/modules/staff/templates/edit.php:78
-#: ../backend/modules/staff/templates/new.php:22
+#: ../backend/modules/staff/templates/edit.php:82
+#: ../backend/modules/staff/templates/new.php:24
 msgid "Full name"
 msgstr "Volledige Naam"
 
-#: ../backend/modules/staff/templates/edit.php:102
+#: ../backend/modules/staff/templates/edit.php:106
 msgid "Google Calendar integration"
 msgstr "Google Calendar integratie"
 
-#: ../backend/modules/staff/templates/edit.php:116
+#: ../backend/modules/staff/templates/edit.php:120
 msgid "Connect"
 msgstr "Verbinden"
 
-#: ../backend/modules/staff/templates/edit.php:118
+#: ../backend/modules/staff/templates/edit.php:122
 msgid ""
 "Please configure Google Calendar <a href=\"?page=ab-"
 "settings&type=_google_calendar\">settings</a> first"
@@ -1745,25 +1860,25 @@ msgstr ""
 "Gelieve eerst Google Agenda- <a href=\"?page=ab-settings\">instellingen</a> "
 "te configureren"
 
-#: ../backend/modules/staff/templates/edit.php:121
+#: ../backend/modules/staff/templates/edit.php:125
 msgid "Connected"
 msgstr "Verbonden"
 
-#: ../backend/modules/staff/templates/edit.php:121
+#: ../backend/modules/staff/templates/edit.php:125
 msgid "disconnect"
 msgstr "verbinding verbroken"
 
-#: ../backend/modules/staff/templates/edit.php:131
+#: ../backend/modules/staff/templates/edit.php:135
 msgid "Calendar ID"
 msgstr "Kalender ID"
 
 # @ ab
-#: ../backend/modules/staff/templates/list.php:2
+#: ../backend/modules/staff/templates/list.php:4
 msgid "Staff Members"
 msgstr "Medewerkers"
 
 # @ ab
-#: ../backend/modules/staff/templates/list.php:27
+#: ../backend/modules/staff/templates/list.php:31
 msgid ""
 "If this staff member requires separate login to access personal calendar, a "
 "regular WP user needs to be created for this purpose."
@@ -1773,7 +1888,7 @@ msgstr ""
 "doel."
 
 # @ ab
-#: ../backend/modules/staff/templates/list.php:28
+#: ../backend/modules/staff/templates/list.php:32
 msgid ""
 "User with \"Administrator\" role will have access to calendars and settings "
 "of all staff members, user with some other role will have access only to "
@@ -1783,7 +1898,7 @@ msgstr ""
 "instellingen van alle medewerkers hebben, gebruikers met een andere rol "
 "krijgen alleen toegang tot hun persoonlijke agenda en instellingen."
 
-#: ../backend/modules/staff/templates/list.php:29
+#: ../backend/modules/staff/templates/list.php:33
 msgid ""
 "If you will leave this field blank, this staff member will not be able to "
 "access personal calendar using WP backend."
@@ -1791,12 +1906,12 @@ msgstr ""
 "Als u dit veld leeg laat, zal deze medewerker niet in staat zijn om toegang "
 "te krijgen tot zijn persoonlijke agenda met behulp van WP backend."
 
-#: ../backend/modules/staff/templates/list.php:32
+#: ../backend/modules/staff/templates/list.php:36
 msgid "Synchronize the data of the staff member bookings with Google Calendar."
 msgstr ""
 "Synchroniseer de gegevens van de medewerker afspraken met Google Calendar."
 
-#: ../backend/modules/staff/templates/list.php:35
+#: ../backend/modules/staff/templates/list.php:39
 msgid ""
 "The Calendar ID can be found by clicking on \"Calendar settings\" next to "
 "the calendar you wish to display. The Calendar ID is then shown beside "
@@ -1806,17 +1921,17 @@ msgstr ""
 "naast de agenda die u wilt weergeven. De Agenda ID wordt dan weergegeven "
 "naast \"Calendar Address\"."
 
-#: ../backend/modules/staff/templates/list.php:36
+#: ../backend/modules/staff/templates/list.php:40
 msgid "<b>Leave this field empty</b> to work with the default calendar."
 msgstr "<b>Laat dit veld leeg</b> om te werken met de standaard agenda."
 
 # @ ab
-#: ../backend/modules/staff/templates/new.php:3
+#: ../backend/modules/staff/templates/new.php:4
 msgid "New Staff Member"
 msgstr "Nieuwe medewerker "
 
 # @ ab
-#: ../backend/modules/staff/templates/new.php:28
+#: ../backend/modules/staff/templates/new.php:30
 msgid "Save Member"
 msgstr "Medewerker opslaan"
 
@@ -1850,7 +1965,7 @@ msgstr "Kolommen"
 
 # @ ab
 #: ../backend/modules/tinymce/templates/appointment_list.php:32
-#: ../installer.php:113 ../updates.php:320
+#: ../installer.php:115 ../updates.php:332
 msgid "Time"
 msgstr "Tijd"
 
@@ -1871,8 +1986,8 @@ msgid "Default value for category select"
 msgstr "Standaardwaarde voor te selecteren categorie"
 
 # @ ab
-#: ../backend/modules/tinymce/templates/popup.php:11 ../installer.php:130
-#: ../updates.php:335
+#: ../backend/modules/tinymce/templates/popup.php:11 ../installer.php:132
+#: ../updates.php:347
 msgid "Select category"
 msgstr "Selecteer een categorie"
 
@@ -1901,8 +2016,8 @@ msgstr "Standaardwaarde voor activiteit selecteren"
 
 # @ ab
 # @ default
-#: ../backend/modules/tinymce/templates/popup.php:23 ../installer.php:129
-#: ../updates.php:334
+#: ../backend/modules/tinymce/templates/popup.php:23 ../installer.php:131
+#: ../updates.php:346
 msgid "Select service"
 msgstr "Selecteer een activiteit"
 
@@ -1914,8 +2029,8 @@ msgstr "Standaardwaarde voor medewerker selecteren"
 # @ ab
 # @ default
 #: ../backend/modules/tinymce/templates/popup.php:35
-#: ../frontend/modules/booking/lib/AB_UserBookingData.php:391
-#: ../installer.php:131 ../updates.php:336
+#: ../frontend/modules/booking/lib/AB_UserBookingData.php:384
+#: ../installer.php:133 ../updates.php:348
 msgid "Any"
 msgstr "Geen voorkeur"
 
@@ -1932,7 +2047,7 @@ msgid "Insert Appointment Booking Form"
 msgstr "Voeg reserveringsformulier toe"
 
 # @ ab
-#: ../frontend/modules/booking/AB_BookingController.php:318
+#: ../frontend/modules/booking/AB_BookingController.php:317
 msgid ""
 "<h3>The selected time is not available anymore. Please, choose another time "
 "slot.</h3>"
@@ -1940,22 +2055,16 @@ msgstr ""
 "<h3> De geselecteerde tijd is niet meer beschikbaar. Gelieve een ander "
 "tijdsblok te kiezen. </h3>"
 
-#: ../frontend/modules/booking/AB_BookingController.php:459
+#: ../frontend/modules/booking/AB_BookingController.php:458
 msgid ""
 "The selected time is not available anymore. Please, choose another time slot."
 msgstr ""
 "De geselecteerde tijd is niet meer beschikbaar. Gelieve een ander tijdsblok "
 "te kiezen."
 
-#: ../frontend/modules/booking/AB_BookingController.php:564
+#: ../frontend/modules/booking/AB_BookingController.php:566
 msgid "* This coupon code is invalid or has been used"
 msgstr "* Deze kortingsbon code is ongeldig of is al gebruikt"
-
-# @ default
-#: ../frontend/modules/booking/lib/AB_UserBookingData.php:359
-#: ../lib/AB_BookingConfiguration.php:48
-msgid "Uncategorized"
-msgstr "Niet gecategoriseerd"
 
 # @ ab
 #: ../frontend/modules/booking/templates/1_service.php:35
@@ -1971,6 +2080,16 @@ msgstr "* De starttijd moet minder zijn dan de eindtijd"
 msgid "No time is available for selected criteria."
 msgstr "Er is geen tijdsblok vrij voor de geselecteerde criteria."
 
+#: ../frontend/modules/booking/templates/cancel_appointment.php:9
+msgid "Page Redirection"
+msgstr ""
+
+#: ../frontend/modules/booking/templates/cancel_appointment.php:12
+#, php-format
+msgid ""
+"If you are not redirected automatically, follow the <a href=\"%s\">link</a>."
+msgstr ""
+
 #: ../frontend/modules/customer_profile/templates/short_code.php:43
 msgid "Expired"
 msgstr "Verlopen"
@@ -1979,12 +2098,6 @@ msgstr "Verlopen"
 #: ../frontend/modules/customer_profile/templates/short_code.php:59
 msgid "No appointments found"
 msgstr "Geen afspraken gevonden"
-
-# @ default
-# @ ab
-#: ../frontend/modules/woocommerce/AB_WoocommerceController.php:88
-msgid "Bookly info"
-msgstr ""
 
 #: ../installer.php:21
 msgid "Your appointment information"
@@ -2125,11 +2238,11 @@ msgstr ""
 " [[NEXT_DAY_AGENDA]]"
 
 # @ ab
-#: ../installer.php:46 ../updates.php:34
+#: ../installer.php:46 ../updates.php:46
 msgid "Booking cancellation"
 msgstr "Reservering geannuleerd"
 
-#: ../installer.php:47 ../updates.php:35
+#: ../installer.php:47 ../updates.php:47
 msgid ""
 "Hello.\n"
 "\n"
@@ -2153,7 +2266,7 @@ msgstr ""
 "Klant telefoonnummer: [[CLIENT_PHONE]]\n"
 "Klant e-mail: [[CLIENT_EMAIL]]"
 
-#: ../installer.php:52 ../updates.php:42
+#: ../installer.php:52 ../updates.php:54
 msgid ""
 "Hello.\n"
 "\n"
@@ -2176,11 +2289,11 @@ msgstr ""
 "Dank u."
 
 # @ ab
-#: ../installer.php:105
+#: ../installer.php:107
 msgid "Please select service: "
 msgstr "Selecteer een activiteit:"
 
-#: ../installer.php:106
+#: ../installer.php:108
 msgid ""
 "Below you can find a list of available time slots for [[SERVICE_NAME]] by "
 "[[STAFF_NAME]].\n"
@@ -2190,7 +2303,7 @@ msgstr ""
 "[[SERVICE_NAME]] door [[STAFF_NAME]]. \n"
 "Klik op een tijdsblok om door te gaan met reserveren."
 
-#: ../installer.php:107
+#: ../installer.php:109
 msgid ""
 "You selected a booking for [[SERVICE_NAME]] by [[STAFF_NAME]] at "
 "[[SERVICE_TIME]] on [[SERVICE_DATE]]. The price for the service is "
@@ -2202,11 +2315,11 @@ msgstr ""
 "Vul uw gegevens in het formulier hieronder in om door te gaan met reserveren."
 
 # @ ab
-#: ../installer.php:108
+#: ../installer.php:110
 msgid "Please tell us how you would like to pay: "
 msgstr "Hoe wenst u te betalen:"
 
-#: ../installer.php:109
+#: ../installer.php:111
 msgid ""
 "Thank you! Your booking is complete. An email with details of your booking "
 "has been sent to you."
@@ -2214,48 +2327,64 @@ msgstr ""
 "Bedankt! Uw reservering is voltooid. Een e-mail met de details van uw "
 "reservering is naar u verzonden."
 
-#: ../installer.php:110 ../updates.php:177
+#: ../installer.php:112 ../updates.php:189
 msgid "The price for the service is [[SERVICE_PRICE]]."
 msgstr "De prijs voor de activiteit is [[SERVICE_PRICE]]."
 
 # @ ab
-#: ../installer.php:115 ../updates.php:322
+#: ../installer.php:117 ../updates.php:334
 msgid "Payment"
 msgstr "Betalingen"
 
 # @ ab
-#: ../installer.php:116 ../updates.php:323
+#: ../installer.php:118 ../updates.php:335
 msgid "Done"
 msgstr "Klaar"
 
 # @ ab
-#: ../installer.php:119 ../updates.php:326
+#: ../installer.php:121 ../updates.php:338
 msgid "Employee"
 msgstr "Medewerker"
 
 # @ ab
-#: ../installer.php:120 ../updates.php:327
+#: ../installer.php:122 ../updates.php:339
 msgid "I'm available on or after"
 msgstr "Ik ben beschikbaar op of na"
 
 # @ ab
-#: ../installer.php:121 ../updates.php:328
+#: ../installer.php:123 ../updates.php:340
 msgid "Start from"
 msgstr "Starten vanaf"
 
 # @ ab
-#: ../installer.php:122 ../updates.php:329
+#: ../installer.php:124 ../updates.php:341
 msgid "Finish by"
 msgstr "Eindig om"
 
 # @ ab
-#: ../installer.php:127 ../updates.php:112
+#: ../installer.php:129 ../updates.php:124
 msgid "I will pay locally"
 msgstr "Ik betaal ter plekke"
 
-#: ../lib/AB_Controller.php:91
-msgid "Bookly: You do not have sufficient permissions to access this page."
-msgstr "Bookly : Je hebt onvoldoende rechten om deze pagina te bekijken."
+# @ ab
+#: ../installer.php:163 ../updates.php:10
+msgid "Appointment"
+msgstr "Afspraak"
+
+#: ../installer.php:164 ../updates.php:11
+msgid ""
+"Date: [[APPOINTMENT_DATE]]\n"
+"Time: [[APPOINTMENT_TIME]]\n"
+"Service: [[SERVICE_NAME]]"
+msgstr ""
+"Datum: [[APPOINTMENT_DATE]]\n"
+"Tijd: [[APPOINTMENT_TIME]]\n"
+"Service: [[SERVICE_NAME]]"
+
+# @ default
+#: ../lib/AB_BookingConfiguration.php:48 ../lib/entities/AB_Service.php:53
+msgid "Uncategorized"
+msgstr "Niet gecategoriseerd"
 
 # @ ab
 #: ../lib/AB_Validator.php:17
@@ -2322,19 +2451,25 @@ msgstr "Ongeldig getal"
 msgid "Invalid date or time"
 msgstr "Ongeldige datum of tijd"
 
-#: ../lib/entities/AB_Service.php:39
+#: ../lib/entities/AB_Service.php:68
 #, php-format
 msgid "%d h"
 msgstr "%d uur"
 
-#: ../lib/entities/AB_Service.php:45
+#: ../lib/entities/AB_Service.php:74
 #, php-format
 msgid "%d min"
 msgstr "%d min"
 
-#: ../updates.php:333
+#: ../updates.php:345
 msgid "Notes (optional)"
 msgstr "Opmerking (optioneel)"
+
+#~ msgid "Create WordPress user account for customers."
+#~ msgstr "Maak WordPress gebruikersaccount voor klanten."
+
+#~ msgid "Woocommerce"
+#~ msgstr "WooCommerce"
 
 #~ msgid "Export"
 #~ msgstr "Export"

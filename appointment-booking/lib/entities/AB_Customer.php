@@ -3,8 +3,8 @@
 /**
  * Class AB_Customer
  */
-class AB_Customer extends AB_Entity {
-
+class AB_Customer extends AB_Entity
+{
     protected static $table_name = 'ab_customer';
 
     protected static $schema = array(
@@ -16,9 +16,16 @@ class AB_Customer extends AB_Entity {
         'notes'      => array( 'format' => '%s', 'default' => '' ),
     );
 
-    public function delete() {
-        if ( $this->get( 'wp_user_id' ) ) {
-//            wp_delete_user( $this->get( 'wp_user_id' ) );
+    /**
+     * Delete customer and associated WP user if requested.
+     *
+     * @param bool $with_wp_user
+     * @return false|int
+     */
+    public function delete( $with_wp_user )
+    {
+        if ( $with_wp_user && $this->get( 'wp_user_id' ) ) {
+            wp_delete_user( $this->get( 'wp_user_id' ) );
         }
 
         return parent::delete();
@@ -29,7 +36,8 @@ class AB_Customer extends AB_Entity {
      *
      * @return array
      */
-    public function getAppointmentsForProfile() {
+    public function getAppointmentsForProfile()
+    {
         $records = array();
 
         if ( $this->get( 'id' ) ) {
@@ -95,7 +103,8 @@ class AB_Customer extends AB_Entity {
      *
      * @return bool|int
      */
-    private function _createWPUser() {
+    private function _createWPUser()
+    {
         // Generate unique username.
         $i        = 1;
         $base     = $this->get( 'name' ) != '' ? sanitize_user( $this->get( 'name' ) ) : 'client';

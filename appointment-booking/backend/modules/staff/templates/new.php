@@ -1,6 +1,8 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
 <div class="ab-popup-wrapper">
+    <?php if (is_super_admin() ) : ?>
     <a class="btn btn-info ab-popup-trigger" id="ab-newstaff-member"><?php _e('New Staff Member', 'ab') ?></a>
+    <?php endif ?>
     <div class="ab-popup" style="display: none">
         <div class="ab-arrow"></div>
         <div id="ab-new-satff" class="ab-content">

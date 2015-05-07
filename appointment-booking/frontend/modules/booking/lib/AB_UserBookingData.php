@@ -112,6 +112,26 @@ class AB_UserBookingData {
     }
 
     /**
+     * Get data.
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * Set data.
+     *
+     * @param array $data
+     */
+    public function setData( array $data )
+    {
+        $this->data = $data;
+    }
+
+    /**
      * Partially update data in session.
      *
      * @param array $data
@@ -225,9 +245,19 @@ class AB_UserBookingData {
         }
 
         $customer_appointment = new AB_CustomerAppointment();
-        $customer_appointment->set( 'customer_id', $customer->get( 'id' ) );
-        $customer_appointment->set( 'appointment_id', $appointment->get( 'id' ) );
-        $customer_appointment->set( 'number_of_persons', $this->get( 'number_of_persons' ) );
+        $customer_appointment->loadBy( array(
+                'customer_id'    => $customer->get( 'id' ),
+                'appointment_id' => $appointment->get( 'id' )
+            )
+        );
+        if ( $customer_appointment->isLoaded() ) {
+            // Add number of persons to existing booking.
+            $customer_appointment->set( 'number_of_persons', $customer_appointment->get( 'number_of_persons' ) + $this->get( 'number_of_persons' ) );
+        } else {
+            $customer_appointment->set( 'customer_id', $customer->get( 'id' ) );
+            $customer_appointment->set( 'appointment_id', $appointment->get( 'id' ) );
+            $customer_appointment->set( 'number_of_persons', $this->get( 'number_of_persons' ) );
+        }
         $customer_appointment->set( 'custom_fields', $this->get( 'custom_fields' ) );
         $customer_appointment->set( 'time_zone_offset', $this->get( 'time_zone_offset' ) );
 
@@ -320,23 +350,6 @@ class AB_UserBookingData {
         }
 
         return $price;
-    }
-
-    /**
-     * Get category name.
-     *
-     * @return string
-     */
-    public function getCategoryName() {
-        $service = $this->getService();
-        if ( $service->get( 'category_id' ) ) {
-            $category = new AB_Category();
-            $category->load( $service->get( 'category_id' ) );
-
-            return $category->get( 'name' );
-        }
-
-        return __( 'Uncategorized', 'ab' );
     }
 
     /**

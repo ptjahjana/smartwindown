@@ -81,3 +81,21 @@
         <img src="<?php echo plugins_url( 'backend/resources/images/ajax_loader_32x32.gif', AB_PATH . '/main.php' ) ?>" alt="" />
     </div>
 </div>
+
+<!-- Modal -->
+<div id="ab-customer-delete" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel"><?php _e( 'Delete customer', 'ab' ) ?></h3>
+    </div>
+    <div class="modal-body" style="white-space: normal">
+        <span class="help-block"><?php _e( 'You are about to delete a customer which may have a WordPress account associated to them. Do you want to delete that account too (if there is one)?', 'ab' ) ?></span>
+        <label class="checkbox">
+            <input id="ab-remember-my-choice" type="checkbox" /> <?php _e( 'Remember my choice','ab' ) ?>
+        </label>
+    </div>
+    <div class="modal-footer">
+        <button type="reset" class="btn ab-no" data-dismiss="modal" aria-hidden="true"><?php _e( 'No, delete just the customer','ab' ) ?></button>
+        <button type="submit" class="btn btn-primary ab-yes"><?php _e( 'Yes','ab' ) ?></button>
+    </div>
+</div>

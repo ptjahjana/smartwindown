@@ -31,7 +31,6 @@ include 'lib/entities/AB_StaffScheduleItem.php';
 include 'lib/entities/AB_StaffService.php';
 // backend/modules
 include 'backend/modules/appearance/AB_AppearanceController.php';
-include 'backend/modules/appointments/AB_AppointmentsController.php';
 include 'backend/modules/calendar/AB_CalendarController.php';
 include 'backend/modules/calendar/forms/AB_AppointmentForm.php';
 include 'backend/modules/coupons/AB_CouponsController.php';
@@ -58,6 +57,7 @@ include 'backend/modules/staff/forms/AB_StaffScheduleItemBreakForm.php';
 include 'backend/modules/staff/forms/AB_StaffServicesForm.php';
 include 'backend/modules/staff/forms/widget/AB_TimeChoiceWidget.php';
 include 'backend/modules/tinymce/AB_TinyMCE_Plugin.php';
+include 'backend/modules/appointments/AB_AppointmentsController.php';
 // frontend/modules
 include 'frontend/modules/authorize.net/AB_AuthorizeNetController.php';
 include 'frontend/modules/booking/AB_BookingController.php';
@@ -66,6 +66,7 @@ include 'frontend/modules/booking/lib/AB_AvailableTime.php';
 include 'frontend/modules/customer_profile/AB_CustomerProfileController.php';
 include 'frontend/modules/paypal/AB_PayPalController.php';
 include 'frontend/modules/stripe/AB_StripeController.php';
+include 'frontend/modules/woocommerce/AB_WooCommerceController.php';
 
 include 'backend/AB_Backend.php';
 include 'frontend/AB_Frontend.php';

@@ -3,8 +3,8 @@
 /**
  * Class AB_Staff
  */
-class AB_Staff extends AB_Entity {
-
+class AB_Staff extends AB_Entity
+{
     protected static $table_name = 'ab_staff';
 
     protected static $schema = array(
@@ -20,57 +20,43 @@ class AB_Staff extends AB_Entity {
         'position'           => array( 'format' => '%d', 'default' => 9999 ),
     );
 
-    public function save() {
-        if ( $this->get( 'id' ) ) {
-            parent::save();
-        } else {
-            $user_exist = $this->wpdb->get_results( $this->wpdb->prepare( 'SELECT * FROM ab_staff WHERE wp_user_id = %d', $this->get( 'wp_user_id' ) ) );
+    public function save()
+    {
+        $is_new = ! $this->get( 'id' );
 
-            if ( !count( $user_exist ) ) {
-                $formats = array( '%s', '%s' );
-                $values = array(
-                    'full_name' => $this->get( 'full_name' ),
-                    'email'     => $this->get( 'email' )
-                );
-
-                if ( $this->get( 'wp_user_id' ) ) {
-                    $formats[] = '%d';
-                    $values['wp_user_id'] = $this->get( 'wp_user_id' );
-                    $user = get_user_by('id',$this->get('wp_user_id'));
-                    if( $user )
-                    {
-                        $values['email'] = $user->get('user_email');
-                    }
-                }
-
-                $this->wpdb->insert( 'ab_staff', $values, $formats );
-                $this->set( 'id', $this->wpdb->insert_id);
-
-                // Schedule items.
-                $values   = array();
-                $staff_id = $this->get( 'id' );
-                $id       = 1;
-                foreach ( array( 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday' ) as $week_day ) {
-                    $start = get_option( "ab_settings_{$week_day}_start", null );
-                    $end   = get_option( "ab_settings_{$week_day}_end", null );
-                    $values[] = sprintf(
-                        '(NULL, %d, %d, %s, %s)',
-                        $staff_id,
-                        $id ++,
-                        ($start ? "\"$start\"" : 'NULL'),
-                        ($end ? "\"$end\"" : 'NULL')
-                    );
-                }
-
-                $this->wpdb->query('INSERT INTO ab_staff_schedule_item VALUES ' . implode( ',', $values ) );
-
-                // Create holidays for staff
-                $this->wpdb->query('INSERT INTO ab_holiday (parent_id, staff_id, holiday, repeat_event, title) SELECT id, '.$this->get( 'id' ).', holiday, repeat_event, title FROM ab_holiday WHERE staff_id IS NULL' );
+        if ( $is_new && $this->get( 'wp_user_id' ) ) {
+            $user = get_user_by( 'id', $this->get( 'wp_user_id' ) );
+            if( $user ) {
+                $this->set( 'email', $user->get( 'user_email' ) );
             }
+        }
+
+        parent::save();
+
+        if ( $is_new ) {
+            // Schedule items.
+            $staff_id = $this->get( 'id' );
+            $index    = 1;
+            foreach ( array( 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday' ) as $week_day ) {
+                $item = new AB_StaffScheduleItem();
+                $item->set( 'staff_id', $staff_id );
+                $item->set( 'day_index', $index ++ );
+                $item->set( 'start_time', get_option( "ab_settings_{$week_day}_start" ) ?: null );
+                $item->set( 'end_time', get_option( "ab_settings_{$week_day}_end" ) ?: null );
+                $item->save();
+            }
+
+            // Create holidays for staff
+            $this->wpdb->query( sprintf(
+                'INSERT INTO `ab_holiday` (`parent_id`, `staff_id`, `holiday`, `repeat_event`, `title`)
+                SELECT `id`, %d, `holiday`, `repeat_event`, `title` FROM `ab_holiday` WHERE `staff_id` IS NULL',
+                $staff_id
+            ) );
         }
     }
 
-    public function getScheduleList() {
+    public function getScheduleList()
+    {
         if ( ! $this->isLoaded() ) {
             return array();
         }
@@ -117,7 +103,8 @@ class AB_Staff extends AB_Entity {
      *
      * @return array|mixed
      */
-    public function getAppointments( $start_date, $end_date = null ) {
+    public function getAppointments( $start_date, $end_date = null )
+    {
         if ( ! $this->isLoaded() ) {
             return array();
         }
@@ -131,7 +118,7 @@ class AB_Staff extends AB_Entity {
                   staff.id AS "staff_id",
                   staff.full_name,
                   ss.capacity AS max_capacity,
-                  SUM( ca.number_of_persons ) AS current_capacity,
+                  SUM( ca.number_of_persons ) AS total_number_of_persons,
                   ca.customer_id
               FROM ab_appointment a
               LEFT JOIN ab_customer_appointment ca ON ca.appointment_id = a.id
@@ -163,7 +150,8 @@ class AB_Staff extends AB_Entity {
      *
      * @return array  Array of entities
      */
-    public function getStaffServices() {
+    public function getStaffServices()
+    {
         $result = array();
 
         if ( $this->get( 'id' ) ) {
@@ -197,7 +185,8 @@ class AB_Staff extends AB_Entity {
         return $result;
     }
 
-    public function delete() {
+    public function delete()
+    {
         parent::delete();
         if ( $this->get( 'avatar_path' ) ) {
             unlink( $this->get( 'avatar_path' ) );

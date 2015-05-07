@@ -1,17 +1,17 @@
-<?php
+<?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
-class AB_CustomerController extends AB_Controller {
-
-    protected function getPermissions() {
+class AB_CustomerController extends AB_Controller
+{
+    protected function getPermissions()
+    {
         return array(
             'executeSaveCustomer' => 'user',
             'executeGetNgNewCustomerDialogTemplate' => 'user',
         );
     }
 
-    public function index() {
+    public function index()
+    {
         if ( !empty ( $_POST ) ) {
             $this->importCustomers();
         }
@@ -49,7 +49,8 @@ class AB_CustomerController extends AB_Controller {
     /**
      * Get list of customers.
      */
-    public function executeGetCustomers() {
+    public function executeGetCustomers()
+    {
         $wpdb = $this->getWpdb();
 
         $response = array(
@@ -172,7 +173,8 @@ class AB_CustomerController extends AB_Controller {
     /**
      * Import customers from CSV.
      */
-    private function importCustomers() {
+    private function importCustomers()
+    {
         @ini_set( 'auto_detect_line_endings', true );
 
         $csv_mime_types = array(
@@ -205,7 +207,8 @@ class AB_CustomerController extends AB_Controller {
     /**
      * Get angulars template for new customer dialog.
      */
-    public function executeGetNgNewCustomerDialogTemplate() {
+    public function executeGetNgNewCustomerDialogTemplate()
+    {
         $this->render( 'ng-new_customer_dialog', array(
             'custom_fields' => json_decode( get_option( 'ab_custom_fields' ) ),
             'module'        => $this->getParameter('module'),
@@ -217,15 +220,19 @@ class AB_CustomerController extends AB_Controller {
     /**
      * Delete a customer.
      */
-    public function executeDeleteCustomer() {
-        $this->getWpdb()->delete('ab_customer', array( 'id' => $this->getParameter( 'id' ) ), array( '%d' ) );
+    public function executeDeleteCustomer()
+    {
+        $customer = new AB_Customer();
+        $customer->load( $this->getParameter( 'id' ) );
+        $customer->delete( (bool)$this->getParameter( 'with_wp_user' ) );
     }
 
     /**
      * Override parent method to add 'wp_ajax_ab_' prefix
      * so current 'execute*' methods look nicer.
      */
-    protected function registerWpActions( $prefix = '' ) {
+    protected function registerWpActions( $prefix = '' )
+    {
         parent::registerWpActions( 'wp_ajax_ab_' );
     }
 }

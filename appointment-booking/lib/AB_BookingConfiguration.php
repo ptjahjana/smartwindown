@@ -164,8 +164,8 @@ class AB_BookingConfiguration {
                 $start_timestamp = strtotime( sprintf( "1970-01-01 %s", $data->min_start_time ) );
                 $end_timestamp   = strtotime( sprintf( "1970-01-01 %s", $data->max_end_time ) );
                 $now_timestamp   = $start_timestamp;
-                $now_timestamp_print   = $start_timestamp;
-                $end_timestamp_print   = $end_timestamp;
+                $now_timestamp_print = $start_timestamp;
+                $end_timestamp_print = $end_timestamp;
 
                 if ($this->client_timezone_offset !== false){
                     $now_timestamp_print -= ($this->client_timezone_offset + get_option( 'gmt_offset' )) * 3600;

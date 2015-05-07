@@ -25,7 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
     <?php endif ?>
     <div style="overflow: hidden; position: relative">
         <h2 class="left"><?php echo $staff->get( 'full_name' ) ?></h2>
+        <?php if (is_super_admin() ) : ?>
         <a class="btn btn-info" id="ab-staff-delete"><?php _e( 'Delete this staff member', 'ab' ) ?></a>
+        <?php endif ?>
     </div>
     <div class="tabbable">
         <ul class="nav nav-tabs ab-nav-tabs">
@@ -40,6 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
                     <form class="ab-staff-form bs-docs-example form-horizontal" action="" name="ab_staff" method="POST" enctype="multipart/form-data">
                         <table cellspacing="0">
                             <tbody>
+                            <?php if ( is_super_admin() ): ?>
                             <tr>
                                 <td class="control-group">
                                     <label class="control-label" for="ab-staff-wpuser"><?php _e( 'User', 'ab') ?></label>
@@ -59,9 +62,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
                                     </div>
                                 </td>
                             </tr>
+                            <?php endif ?>
                             <tr>
                                 <td class="control-group">
-                                    <label class="control-label" for="ab-staff-full-name"><?php _e( 'Photo', 'ab') ?></label>
+                                    <label class="control-label" for="ab-staff-avatar"><?php _e( 'Photo', 'ab') ?></label>
                                     <div class="controls">
                                         <div id="ab-staff-avatar-image">
                                             <?php if ( $staff->get( 'avatar_url' ) ) : ?>

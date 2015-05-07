@@ -10,6 +10,7 @@ class AB_Frontend
         // Init controllers.
         $this->bookingController = new AB_BookingController();
         $this->paypalController  = new AB_PayPalController();
+        $this->wooCommerceController     = new AB_WooCommerceController();
         $this->customerProfileController = new AB_CustomerProfileController();
         // Register shortcodes.
         add_shortcode( 'bookly-form', array( $this->bookingController, 'renderShortCode') );

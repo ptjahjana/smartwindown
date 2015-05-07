@@ -1,5 +1,4 @@
 ;(function() {
-
     var module = angular.module('customers', ['ui.utils', 'ui.date', 'newCustomerDialog', 'ngSanitize']);
 
     module.factory('dataSource', function($q, $rootScope) {
@@ -188,24 +187,52 @@
          * @param customer
          */
         $scope.deleteCustomer = function(customer) {
-            if (confirm(BooklyL10n['are_you_sure'])) {
-                $scope.loading = true;
-                jQuery.ajax({
-                    url  : ajaxurl,
-                    type : 'POST',
-                    data : {
-                        action : 'ab_delete_customer',
-                        id     : customer.id
-                    },
-                    dataType : 'json',
-                    success  : function(response) {
-                        $scope.$apply(function($scope) {
-                            $scope.reload();
-                        });
-                    }
-                });
+            if (delete_customer_choice === null) {
+                $modal.data('customer_id', customer.id).modal('show');
+            } else {
+                deleteCustomer(customer.id, delete_customer_choice);
             }
         };
+
+        /**
+         * Popup for deleting customer.
+         */
+        var delete_customer_choice = null;
+        var deleteCustomer = function(customer_id, with_wp_user) {
+            $scope.loading = true;
+            jQuery.ajax({
+                url  : ajaxurl,
+                type : 'POST',
+                data : {
+                    action       : 'ab_delete_customer',
+                    id           : customer_id,
+                    with_wp_user : with_wp_user ? 1 : 0
+                },
+                dataType : 'json',
+                success  : function(response) {
+                    $scope.$apply(function($scope) {
+                        $scope.reload();
+                    });
+                }
+            });
+        };
+        var $modal = jQuery('#ab-customer-delete');
+        $modal
+            .on('click', '.ab-yes', function () {
+                $modal.modal('hide');
+                if ( jQuery('#ab-remember-my-choice').prop('checked') ) {
+                    delete_customer_choice = true;
+                }
+                deleteCustomer($modal.data('customer_id'), true);
+
+            })
+            .on('click', '.ab-no', function () {
+                if ( jQuery('#ab-remember-my-choice').prop('checked') ) {
+                    delete_customer_choice = false;
+                }
+                deleteCustomer($modal.data('customer_id'), false);
+            });
+
     });
 
     /**

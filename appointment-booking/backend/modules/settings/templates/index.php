@@ -5,6 +5,7 @@
         <div id="ab_settings_general" class="ab-left-tab <?php echo ( ! isset( $_GET[ 'type' ] ) || $_GET[ 'type' ] == '_general' ) ? 'ab-active' : ''  ?>"><?php _e( 'General','ab' ) ?></div>
         <div id="ab_settings_company" class="ab-left-tab <?php echo isset( $_GET['type'] ) && $_GET['type'] == '_company' ? 'ab-active' : ''  ?>"><?php _e( 'Company','ab' ) ?></div>
         <div id="ab_settings_google_calendar" class="ab-left-tab <?php echo isset( $_GET['type'] ) && $_GET['type'] == '_google_calendar' ? 'ab-active' : ''  ?>"><?php _e( 'Google Calendar','ab' ) ?></div>
+        <div id="ab_settings_woocommerce" class="ab-left-tab <?php echo isset( $_GET[ 'type' ] ) && $_GET[ 'type' ] == '_woocommerce' ? 'ab-active' : ''  ?>">WooCommerce</div>
         <div id="ab_settings_payments" class="ab-left-tab <?php echo isset( $_GET['type'] ) && $_GET['type'] == '_payments' ? 'ab-active' : ''  ?>"><?php _e( 'Payments','ab' ) ?></div>
         <div id="ab_settings_hours" class="ab-left-tab <?php echo isset( $_GET['type'] ) && $_GET['type'] == '_hours' ? 'ab-active' : ''  ?>"><?php _e( 'Business hours','ab' ) ?></div>
         <div id="ab_settings_holidays" class="ab-left-tab <?php echo isset( $_GET['type'] ) && $_GET['type'] == '_holidays' ? 'ab-active' : ''  ?>"><?php _e( 'Holidays','ab' ) ?></div>
@@ -31,6 +32,9 @@
         </div>
         <div id="purchase-code-form" class="<?php echo ( isset( $_GET[ 'type' ] ) && $_GET[ 'type' ] == '_purchase_code' ) ? '' : 'hidden' ?> ab-setting-tab-content">
             <?php include '_purchaseCodeForm.php' ?>
+        </div>
+        <div id="woocommerce-form" class="<?php echo ( isset( $_GET[ 'type' ] ) && $_GET[ 'type' ] == '_woocommerce' ) ? '' : 'hidden' ?> ab-setting-tab-content">
+            <?php include '_woocommerce.php' ?>
         </div>
     </div>
 </div>

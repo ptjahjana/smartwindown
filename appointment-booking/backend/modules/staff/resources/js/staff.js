@@ -161,6 +161,9 @@ jQuery(function($) {
                         $('#ab-staff-services-update').bind('click', function () {
                             $('.spinner', services_form).fadeIn('slow');
                             $.post(ajaxurl, services_form.serialize(), function (response) {
+                                if ('' != response) {
+                                    alert(response);
+                                }
                                 $('.spinner', services_form).fadeOut('slow');
                             });
                         });
