@@ -117,6 +117,6 @@ class AB_NotificationCodes
             '[[NEW_PASSWORD]]'           => $this->get( 'new_password' ),
         );
 
-        return str_replace( array_keys( $codes ), array_values( $codes ), $text );
+        return strtr( $text, $codes );
     }
 }

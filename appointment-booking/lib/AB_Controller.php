@@ -88,7 +88,7 @@ abstract class AB_Controller
             call_user_func( array( $this, $action ) );
         } else {
             do_action( 'admin_page_access_denied' );
-            wp_die( __( 'Bookly: You do not have sufficient permissions to access this page.' ) );
+            wp_die( __( 'Bookly: You do not have sufficient permissions to access this page.', 'ab' ) );
         }
     }
 

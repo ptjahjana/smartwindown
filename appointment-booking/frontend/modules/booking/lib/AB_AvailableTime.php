@@ -165,8 +165,9 @@ class AB_AvailableTime
                 $start_date->sub( $this->one_day );
             }
         }
-        $max_date = new DateTime( '@' . ( current_time( 'timestamp' ) + AB_BookingConfiguration::getMaximumAvailableDaysForBooking() * 86400 ) );
-        $max_date->modify( 'midnight' );
+        $max_date = date_create(
+            '@' . ( (int)current_time( 'timestamp' ) + AB_BookingConfiguration::getMaximumAvailableDaysForBooking() * 86400 )
+        )->setTime( 0, 0 );
 
         return array( $req_timestamp, $start_date, $max_date );
     }
@@ -246,8 +247,8 @@ class AB_AvailableTime
         $time_slot_length   = AB_BookingConfiguration::getTimeSlotLength();
         $prior_time         = AB_BookingConfiguration::getMinimumTimePriorBooking();
         $show_blocked_slots = AB_BookingConfiguration::showBlockedTimeSlots();
-        $current_timestamp  = current_time( 'timestamp' ) + $prior_time;
-        $current_date       = date_modify( date_create( '@' . $current_timestamp ), 'midnight' );
+        $current_timestamp  = (int)current_time( 'timestamp' ) + $prior_time;
+        $current_date       = date_create( '@' . $current_timestamp )->setTime( 0, 0 );
 
         if ( $date < $current_date ) {
             return array();
@@ -324,8 +325,7 @@ class AB_AvailableTime
                                             'staff_id' => $staff_id,
                                             'booked'   => true
                                         );
-                                    }
-                                    else {
+                                    } else {
                                         $frames[] = array(
                                             'start'    => $booking_start,
                                             'end'      => $booking_end,
@@ -623,14 +623,14 @@ class AB_AvailableTime
         $endDate->modify( "+ {$this->userData->getService()->get( 'duration' )} sec" );
 
         $query = $wpdb->prepare(
-            "SELECT `a`.*, `ss`.`capacity`, COUNT(*) AS `number_of_bookings`
+            "SELECT `a`.*, `ss`.`capacity`, SUM(`ca`.`number_of_persons`) AS `total_number_of_persons`
                 FROM `ab_customer_appointment` `ca`
                 LEFT JOIN `ab_appointment`   `a`  ON `a`.`id` = `ca`.`appointment_id`
                 LEFT JOIN `ab_staff_service` `ss` ON `ss`.`staff_id` = `a`.`staff_id` AND `ss`.`service_id` = `a`.`service_id`
                 WHERE `a`.`staff_id` = %d
                 GROUP BY `a`.`start_date` , `a`.`staff_id` , `a`.`service_id`
                 HAVING
-                      (`a`.`start_date` = %s AND `service_id` =  %d and `number_of_bookings` >= `capacity`) OR
+                      (`a`.`start_date` = %s AND `service_id` =  %d AND `total_number_of_persons` >= `capacity`) OR
                       (`a`.`start_date` = %s AND `service_id` <> %d) OR
                       (`a`.`start_date` > %s AND `a`.`end_date` <= %s) OR
                       (`a`.`start_date` < %s  AND `a`.`end_date` > %s) OR

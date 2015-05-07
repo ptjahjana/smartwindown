@@ -21,8 +21,36 @@ class AB_Service extends AB_Entity {
     /**
      * @return string
      */
-    public function getTitleWithDuration() {
-        return sprintf( '%s (%s)', $this->get( 'title' ), self::durationToString( $this->get( 'duration' ) ) );
+    public function getTitleWithDuration()
+    {
+        return sprintf( '%s (%s)', $this->getTitle(), self::durationToString( $this->get( 'duration' ) ) );
+    }
+
+    /**
+     * Get title (if empty returns "Untitled").
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->get( 'title' ) != '' ? $this->get( 'title' ) : __( 'Untitled', 'ab' );
+    }
+
+    /**
+     * Get category name.
+     *
+     * @return string
+     */
+    public function getCategoryName()
+    {
+        if ( $this->get( 'category_id' ) ) {
+            $category = new AB_Category();
+            $category->load( $this->get( 'category_id' ) );
+
+            return $category->get( 'name' );
+        }
+
+        return __( 'Uncategorized', 'ab' );
     }
 
     /**
@@ -31,7 +59,8 @@ class AB_Service extends AB_Entity {
      * @param int $duration
      * @return string
      */
-    public static function durationToString( $duration ) {
+    public static function durationToString( $duration )
+    {
         $hours   = (int)( $duration / 3600 );
         $minutes = (int)( ( $duration % 3600 ) / 60 );
         $result  = '';

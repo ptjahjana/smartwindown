@@ -61,18 +61,19 @@ abstract class AB_Entity {
     /**
      * Constructor.
      */
-    public function __construct() {
-      /** @var WPDB $wpdb */
-      global $wpdb;
+    public function __construct()
+    {
+        /** @var WPDB $wpdb */
+        global $wpdb;
 
-      // Reference to global database object.
-      $this->wpdb = $wpdb;
+        // Reference to global database object.
+        $this->wpdb = $wpdb;
 
-      // Initialize $values and $formats.
-      foreach ( static::$schema as $field_name => $options ) {
-          $this->values[ $field_name ]  = array_key_exists( 'default', $options ) ? $options[ 'default' ] : null;
-          $this->formats[ $field_name ] = array_key_exists( 'format', $options ) ? $options[ 'format' ] : '%s';
-      }
+        // Initialize $values and $formats.
+        foreach ( static::$schema as $field_name => $options ) {
+            $this->values[ $field_name ]  = array_key_exists( 'default', $options ) ? $options[ 'default' ] : null;
+            $this->formats[ $field_name ] = array_key_exists( 'format', $options ) ? $options[ 'format' ] : '%s';
+        }
     }
 
     /**
@@ -81,7 +82,8 @@ abstract class AB_Entity {
      * @param string $field
      * @param mixed $value
      */
-    public function set( $field, $value ) {
+    public function set( $field, $value )
+    {
         $this->values[ $field ] = $value;
     }
 
@@ -91,7 +93,8 @@ abstract class AB_Entity {
      * @param string $field
      * @return mixed
      */
-    public function get( $field ) {
+    public function get( $field )
+    {
         return $this->values[ $field ];
     }
 
@@ -101,7 +104,8 @@ abstract class AB_Entity {
      * @param string $field
      * @param mixed $value
      */
-    public function __set( $field, $value ) {
+    public function __set( $field, $value )
+    {
         $this->set( $field, $value );
     }
 
@@ -111,7 +115,8 @@ abstract class AB_Entity {
      * @param string $field
      * @return mixed
      */
-    public function __get( $field ) {
+    public function __get( $field )
+    {
         return $this->get( $field );
     }
 
@@ -121,7 +126,8 @@ abstract class AB_Entity {
      * @param integer $id
      * @return boolean
      */
-    public function load( $id ) {
+    public function load( $id )
+    {
         return $this->loadBy( array( 'id' => $id ) );
     }
 
@@ -131,7 +137,8 @@ abstract class AB_Entity {
      * @param array $fields
      * @return bool
      */
-    public function loadBy( array $fields ) {
+    public function loadBy( array $fields )
+    {
         // Prepare WHERE clause.
         $where = array();
         $values = array();
@@ -171,7 +178,8 @@ abstract class AB_Entity {
      *
      * @return bool
      */
-    public function isLoaded() {
+    public function isLoaded()
+    {
         return $this->loaded_values !== null;
     }
 
@@ -182,7 +190,8 @@ abstract class AB_Entity {
      * @param array|object $data
      * @param bool $overwrite_loaded_values
      */
-    public function setData( $data, $overwrite_loaded_values = false ) {
+    public function setData( $data, $overwrite_loaded_values = false )
+    {
         if ( is_array( $data ) || $data instanceof stdClass ) {
             foreach ( $data as $field => $value ) {
                 if ( array_key_exists( $field, $this->values ) ) {
@@ -202,7 +211,8 @@ abstract class AB_Entity {
      *
      * @return array
      */
-    public function getData() {
+    public function getData()
+    {
         return $this->values;
     }
 
@@ -211,7 +221,8 @@ abstract class AB_Entity {
      *
      * @return array
      */
-    public function getModified() {
+    public function getModified()
+    {
         return array_diff_assoc( $this->loaded_values ?: array(), $this->values );
     }
 
@@ -220,7 +231,8 @@ abstract class AB_Entity {
      *
      * @return int|false
      */
-    public function save() {
+    public function save()
+    {
         // Prepare query data.
         $set    = array();
         $values = array();
@@ -275,7 +287,8 @@ abstract class AB_Entity {
      *
      * @return int|false
      */
-    public function delete() {
+    public function delete()
+    {
         if ( $this->values[ 'id' ] ) {
             return $this->wpdb->delete( static::$table_name, array( 'id' => $this->values[ 'id' ] ), array( '%d' ) );
         }
@@ -289,7 +302,8 @@ abstract class AB_Entity {
      * @static
      * @return string
      */
-    public static function getTableName() {
+    public static function getTableName()
+    {
         return static::$table_name;
     }
 
@@ -299,7 +313,8 @@ abstract class AB_Entity {
      * @static
      * @return array
      */
-    public static function getSchema() {
+    public static function getSchema()
+    {
         return static::$schema;
     }
 }

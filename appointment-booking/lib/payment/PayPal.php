@@ -13,7 +13,7 @@ class PayPal {
     protected $products = array();
 
     public static function getCurrencyCodes() {
-        return array( 'AUD', 'BRL', 'CAD', 'CHF', 'CLP', 'COP', 'CZK', 'DKK', 'EUR', 'GBP', 'GTQ', 'HKD', 'HUF', 'IDR', 'INR', 'ILS', 'JPY', 'KRW', 'MXN', 'MYR', 'NOK', 'NZD', 'PHP', 'PLN', 'RON', 'RMB', 'RUB', 'SAR', 'SEK', 'SGD', 'THB', 'TRY', 'TWD', 'USD', 'ZAR' );
+        return array( 'AUD', 'BRL', 'CAD', 'CHF', 'CLP', 'COP', 'CZK', 'DKK', 'EUR', 'GBP', 'GTQ', 'HKD', 'HUF', 'IDR', 'INR', 'ILS', 'JPY', 'KRW', 'KZT', 'MXN', 'MYR', 'NOK', 'NZD', 'PHP', 'PLN', 'RON', 'RMB', 'RUB', 'SAR', 'SEK', 'SGD', 'THB', 'TRY', 'TWD', 'UGX', 'USD', 'ZAR' );
     }
 
     /**
@@ -65,7 +65,7 @@ class PayPal {
             header('Location: '.$paypalurl);
             exit;
         } else {
-            header('Location: ' . add_query_arg( array( 'action' => 'ab-paypal-errorurl', 'ab_fid' => $form_id, 'error_msg' => $response["L_LONGMESSAGE0"]), AB_CommonUtils::getCurrentPageURL() ) );
+            header('Location: ' . wp_sanitize_redirect( add_query_arg( array( 'action' => 'ab-paypal-errorurl', 'ab_fid' => $form_id, 'error_msg' => $response["L_LONGMESSAGE0"]), AB_CommonUtils::getCurrentPageURL() ) ) );
             exit;
         }
     }

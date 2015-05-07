@@ -1908,12 +1908,12 @@
         * Refresh the displayed details of a calEvent in the calendar
         */
       _refreshEventDetails: function(calEvent, $calEvent) {
-	        var prefix = '';
-	        if (!this.options.readonly &&
-		        this.options.allowEventDelete &&
-		        this.options.deletable(calEvent,$calEvent)) {
-	            prefix = '<div class="wc-cal-event-delete ui-icon ui-icon-close"></div>';
-	        }
+          var prefix = '';
+          if (!this.options.readonly &&
+              this.options.allowEventDelete &&
+              this.options.deletable(calEvent, $calEvent)) {
+              prefix = '<div class="wc-cal-event-delete ui-icon ui-icon-close"></div>';
+          }
           $calEvent.find('.wc-time').html(prefix + this.options.eventHeader(calEvent, this.element));
           $calEvent.find('.wc-title').html(this.options.eventBody(calEvent, this.element));
 

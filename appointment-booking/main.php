@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Bookly
-Plugin URI: http://bookly-wp-plugin.com
+Plugin URI: http://booking-wp-plugin.com
 Description: Bookly is a great easy-to-use and easy-to-manage appointment booking tool for Service providers who think about their customers. Plugin supports wide range of services, provided by business and individuals service providers offering reservations through websites. Setup any reservations quickly, pleasantly and easy with Bookly!
-Version: 5.2.1
+Version: 6.1
 Author: Ladela Interactive
 Author URI: http://www.ladela.com
 License: Commercial
@@ -18,7 +18,7 @@ include 'autoload.php';
 // auto updating
 require 'lib/utils/plugin-updates/ab-plugin-update-checker.php';
 $MyUpdateChecker = new AB_PluginUpdateChecker(
-    'http://bookly-wp-plugin.com/index.php',
+    'http://booking-wp-plugin.com/index.php',
     __FILE__,
     basename( __DIR__ )
 );

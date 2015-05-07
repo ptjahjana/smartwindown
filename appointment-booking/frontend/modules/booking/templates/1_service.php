@@ -73,8 +73,8 @@ if ( get_option( 'ab_appearance_show_progress_tracker' ) == 1 ) {
                             <?php foreach ( $work_day_time_data['available_days'] as $key => $day ) : ?>
                                 <li>
                                     <div class="ab-bold"><?php echo $day ?></div>
-                                    <label class="active">
-                                        <input class="ab-week-day ab-week-day-<?php echo $key ?>" value="<?php echo $key ?>" checked="checked" type="checkbox"/>
+                                    <label<?php if ( in_array( $key, $days_checked ) ): ?> class="active"<?php endif ?>>
+                                        <input class="ab-week-day ab-week-day-<?php echo $key ?>" value="<?php echo $key ?>" <?php checked( in_array( $key, $days_checked ) ) ?> type="checkbox"/>
                                     </label>
                                 </li>
                             <?php endforeach ?>

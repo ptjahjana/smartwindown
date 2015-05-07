@@ -84,6 +84,7 @@ class AB_Installer {
             'ab_settings_google_two_way_sync'        => 1,
             'ab_settings_google_limit_events'        => 50,
             'ab_settings_final_step_url'             => '',
+            'ab_settings_allow_staff_members_edit_profile' => 1,
             // Business hours.
             'ab_settings_monday_start'               => '08:00',
             'ab_settings_monday_end'                 => '18:00',
@@ -154,7 +155,12 @@ class AB_Installer {
             'ab_stripe'                              => '0',
             'ab_stripe_secret_key'                   => '',
             // Custom Fields
-            'ab_custom_fields'                       => '[{"type":"textarea","label":' . json_encode( __( 'Notes', 'ab' ) ) . ',"required":false,"id":1}]'
+            'ab_custom_fields'                       => '[{"type":"textarea","label":' . json_encode( __( 'Notes', 'ab' ) ) . ',"required":false,"id":1}]',
+            // WooCommerce
+            'ab_woocommerce'                         => '0',
+            'ab_woocommerce_product'                 => '',
+            'ab_woocommerce_cart_info_name'          => __( 'Appointment', 'ab' ),
+            'ab_woocommerce_cart_info_value'         => __( "Date: [[APPOINTMENT_DATE]]\nTime: [[APPOINTMENT_TIME]]\nService: [[SERVICE_NAME]]", 'ab' ),
         );
     }
 

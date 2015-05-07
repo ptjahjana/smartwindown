@@ -188,7 +188,7 @@ class AB_Google
         try {
             $calendar_access = $this->getCalendarAccess();
 
-            $time_slot    = get_option('ab_settings_time_slot_length') * 60;
+            $time_slot_length = AB_BookingConfiguration::getTimeSlotLength();
             $limit_events = get_option( 'ab_settings_google_limit_events' );
 
             $timeMin = clone $startDate;
@@ -243,7 +243,11 @@ class AB_Google
                                 } else {
                                     $loop_end = clone $eventEndDate;
                                     $end_date = $loop_end->getTimestamp();
-                                    $end_date += $time_slot - $end_date % $time_slot;
+                                    // Round end time to a multiple of the default time slot length.
+                                    $extra = $end_date % $time_slot_length;
+                                    if ( $extra ) {
+                                        $end_date += $time_slot_length - $extra;
+                                    }
                                     $loop_end->setTimestamp( $end_date );
                                 }
 

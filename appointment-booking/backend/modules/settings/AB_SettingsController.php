@@ -51,7 +51,7 @@ class AB_SettingsController extends AB_Controller {
             }
             // Purchase Code Form
             else if ( $this->getParameter( 'type' ) == '_purchase_code' ) {
-                update_option( 'ab_envato_purchase_code',  esc_html( $this->getParameter( 'ab_envato_purchase_code' ) ) );
+                update_option( 'ab_envato_purchase_code',  $this->getParameter( 'ab_envato_purchase_code' ) );
                 $this->message_pc = __( 'Settings saved.', 'ab' );
             }
             else if ( $this->getParameter( 'type' ) == '_general' ) {
@@ -65,6 +65,7 @@ class AB_SettingsController extends AB_Controller {
                 update_option( 'ab_settings_create_account', (int)$this->getParameter( 'ab_settings_create_account' ) );
                 update_option( 'ab_settings_cancel_page_url', $this->getParameter( 'ab_settings_cancel_page_url' ) );
                 update_option( 'ab_settings_final_step_url', $this->getParameter( 'ab_settings_final_step_url' ) );
+                update_option( 'ab_settings_allow_staff_members_edit_profile', (int)$this->getParameter( 'ab_settings_allow_staff_members_edit_profile' ) );
                 $this->message_g = __( 'Settings saved.', 'ab' );
             }
             // Google calendar form
@@ -88,10 +89,19 @@ class AB_SettingsController extends AB_Controller {
                 $this->form->bind( $this->getPostParameters(), $_FILES );
                 $this->form->save();
             }
+            // WooCommerce form
+            if ( $this->getParameter( 'type' ) == '_woocommerce' ) {
+                update_option( 'ab_woocommerce', $this->getParameter( 'ab_woocommerce' ) );
+                update_option( 'ab_woocommerce_product', $this->getParameter( 'ab_woocommerce_product' ) );
+                update_option( 'ab_woocommerce_cart_info_name', $this->getParameter( 'ab_woocommerce_cart_info_name' ) );
+                update_option( 'ab_woocommerce_cart_info_value', $this->getParameter( 'ab_woocommerce_cart_info_value' ) );
+            }
         }
 
         // get holidays
         $this->holidays = $this->getHolidays();
+        $this->woocommerce_active = is_plugin_active('woocommerce/woocommerce.php');
+        $this->candidates = $this->getCandidatesBooklyProduct();
 
         $this->render( 'index' );
     } // index
@@ -161,13 +171,32 @@ class AB_SettingsController extends AB_Controller {
         return json_encode( (object) $holidays );
     }
 
+    protected function getCandidatesBooklyProduct(){
+
+        $goods = array(array('id' => 0, 'name' => __( 'Select product', 'ab' )));
+        $args = array(
+            'numberposts'      => 0,
+            'post_type'        => 'product',
+            //'ping_status'      => 'closed',
+            //'post_status'      => 'publish',
+            'suppress_filters' => true
+        );
+        $collection = get_posts( $args );
+        foreach ( $collection as $item ) {
+            $goods[] = array('id' => $item->ID, 'name' => $item->post_title);
+        }
+        wp_reset_postdata();
+
+        return $goods;
+    }
     /**
      * Show admin notice about purchase code and license.
      */
     public function showAdminNotice() {
         global $current_user;
 
-        if ( !get_user_meta( $current_user->ID, 'ab_dismiss_admin_notice', true ) &&
+        if ( is_super_admin() &&
+            ! get_user_meta( $current_user->ID, 'ab_dismiss_admin_notice', true ) &&
             get_option( 'ab_envato_purchase_code' ) == '' &&
             time() > get_option( 'ab_installation_time' ) + 7*24*60*60
         ) {

@@ -3,6 +3,16 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class AB_Updates {
 
+    function update_6_0() {
+        // WooCommerce.
+        add_option( 'ab_woocommerce', '0' );
+        add_option( 'ab_woocommerce_product', '' );
+        add_option( 'ab_woocommerce_cart_info_name', __( 'Appointment', 'ab' ) );
+        add_option( 'ab_woocommerce_cart_info_value', __( "Date: [[APPOINTMENT_DATE]]\nTime: [[APPOINTMENT_TIME]]\nService: [[SERVICE_NAME]]", 'ab' ) );
+        // Staff Members Profile.
+        add_option( 'ab_settings_allow_staff_members_edit_profile', 0 );
+    }
+
     function update_5_0() {
         /* @var WPDB $wpdb */
         global $wpdb;

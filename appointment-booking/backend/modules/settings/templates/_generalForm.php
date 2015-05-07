@@ -1,5 +1,5 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
-<form method="post" action="<?php echo add_query_arg( 'type', '_general' ) ?>" enctype="multipart/form-data" class="ab-settings-form">
+<form method="post" action="<?php echo esc_url( add_query_arg( 'type', '_general' ) ) ?>" enctype="multipart/form-data" class="ab-settings-form">
 
     <?php if (isset($message_g)) : ?>
         <div id="message" style="margin: 0px!important;" class="updated below-h2">
@@ -76,7 +76,7 @@
             <td class="ab-valign-top">
                 <select name="ab_settings_use_client_time_zone">
                     <?php foreach ( array( __( 'Disabled', 'ab' ) => '0', __( 'Enabled', 'ab' ) => '1' ) as $text => $mode ): ?>
-                        <option value="<?php echo $mode ?>" <?php selected( get_option( 'ab_settings_use_client_time_zone' ), $mode ) ?> ><?php echo $text ?></option>
+                        <option value="<?php echo esc_attr( $mode ) ?>" <?php selected( get_option( 'ab_settings_use_client_time_zone' ), $mode ) ?> ><?php echo $text ?></option>
                     <?php endforeach ?>
                 </select>
             </td>
@@ -96,7 +96,7 @@
             <td>
                 <select name="ab_settings_create_account" style="width: 200px;">
                     <?php foreach ( array( __( 'Disabled', 'ab' ) => '0', __( 'Enabled', 'ab' ) => '1' ) as $text => $mode ): ?>
-                        <option value="<?php echo $mode ?>" <?php selected( get_option( 'ab_settings_create_account' ), $mode ); ?> ><?php echo $text ?></option>
+                        <option value="<?php echo esc_attr( $mode ) ?>" <?php selected( get_option( 'ab_settings_create_account' ), $mode ); ?> ><?php echo $text ?></option>
                     <?php endforeach ?>
                 </select>
             </td>
@@ -105,7 +105,7 @@
                     src="<?php echo plugins_url( 'backend/resources/images/help.png', AB_PATH . '/main.php' ) ?>"
                     alt=""
                     class="ab-popover"
-                    data-content="<?php echo esc_attr( __( 'Create WordPress user account for customers.', 'ab' ) ) ?>"
+                    data-content="<?php echo esc_attr( __( 'If this setting is enabled then Bookly will be creating WordPress user accounts for all new customers. If the user is logged in then the new customer will be associated with the existing user account.', 'ab' ) ) ?>"
                     />
             </td>
         </tr>
@@ -132,7 +132,7 @@
             <td class="ab-valign-top">
                 <select id="ab_settings_final_step_url_mode">
                     <?php foreach ( array( __( 'Disabled', 'ab' ) => 0, __( 'Enabled', 'ab' ) => 1 ) as $text => $mode ): ?>
-                        <option value="<?php echo $mode ?>" <?php selected( get_option( 'ab_settings_final_step_url' ), $mode ) ?> ><?php echo $text ?></option>
+                        <option value="<?php echo esc_attr( $mode ) ?>" <?php selected( get_option( 'ab_settings_final_step_url' ), $mode ) ?> ><?php echo $text ?></option>
                     <?php endforeach ?>
                 </select>
                 <br>
@@ -144,6 +144,24 @@
                     alt=""
                     class="ab-popover"
                     data-content="<?php echo esc_attr( __( 'Set a URL of a page that the user will be forwarded to after successful booking. If disabled then the default step 5 is displayed.', 'ab' ) ) ?>"
+                    />
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e( 'Allow staff members to edit their profiles', 'ab' ) ?></td>
+            <td class="ab-valign-top">
+                <select name="ab_settings_allow_staff_members_edit_profile" style="width: 200px;">
+                    <?php foreach ( array( __( 'Disabled', 'ab' ) => '0', __( 'Enabled', 'ab' ) => '1' ) as $text => $mode ): ?>
+                        <option value="<?php echo esc_attr( $mode ) ?>" <?php selected( get_option( 'ab_settings_allow_staff_members_edit_profile' ), $mode ) ?> ><?php echo $text ?></option>
+                    <?php endforeach ?>
+                </select>
+            </td>
+            <td class="ab-valign-top">
+                <img
+                    src="<?php echo esc_attr( plugins_url( 'backend/resources/images/help.png', AB_PATH . '/main.php' ) ) ?>"
+                    alt=""
+                    class="ab-popover"
+                    data-content="<?php echo esc_attr( __( 'If this option is enabled then all staff members who are associated with WordPress users will be able to edit their own profiles, services, schedule and days off.', 'ab' ) ) ?>"
                     />
             </td>
         </tr>
