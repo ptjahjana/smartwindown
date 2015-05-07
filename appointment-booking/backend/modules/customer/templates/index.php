@@ -20,14 +20,15 @@
     <table id="ab_customers_list" class="table table-striped" cellspacing=0 cellpadding=0 border=0 style="clear: both;">
         <thead>
         <tr>
-            <th width=150 ng-class=css_class.name><a href="" ng-click=reload({sort:'name'})><?php _e( 'Name', 'ab' ); ?></a></th>
-            <th width=150 ng-class=css_class.wp_user><a href="" ng-click=reload({sort:'wp_user'})><?php _e( 'User', 'ab' ); ?></a></th>
+            <th width=100 ng-class=css_class.name><a href="" ng-click=reload({sort:'name'})><?php _e( 'Name', 'ab' ); ?></a></th>
+            <!--th width=150 ng-class=css_class.wp_user><a href="" ng-click=reload({sort:'wp_user'})><?php _e( 'User', 'ab' ); ?></a></th-->
             <th width=100 ng-class=css_class.phone><a href="" ng-click=reload({sort:'phone'})><?php _e( 'Phone', 'ab' ); ?></a></th>
-            <th width=150 ng-class=css_class.email><a href="" ng-click=reload({sort:'email'})><?php _e( 'Email', 'ab' ); ?></a></th>
+            <th width=100 ng-class=css_class.email><a href="" ng-click=reload({sort:'email'})><?php _e( 'Email', 'ab' ); ?></a></th>
+            <th width=150 ng-class=css_class.address><a href="" ng-click=reload({sort:'address'})><?php _e( 'Address', 'ab' ); ?></a></th>
             <th width=150 ng-class=css_class.notes><a href="" ng-click=reload({sort:'notes'})><?php _e( 'Notes', 'ab' ); ?></a></th>
-            <th width=150 ng-class=css_class.last_appointment><a href="" ng-click=reload({sort:'last_appointment'})><?php _e( 'Last appointment', 'ab' ); ?></a></th>
-            <th width=150 ng-class=css_class.total_appointments><a href="" ng-click=reload({sort:'total_appointments'})><?php _e( 'Total appointments', 'ab'); ?></a></th>
-            <th width=150 ng-class=css_class.payments><a href="" ng-click=reload({sort:'payments'})><?php _e( 'Payments', 'ab'); ?></a></th>
+            <th width=50 ng-class=css_class.last_appointment><a href="" ng-click=reload({sort:'last_appointment'})><?php _e( 'Last appointment', 'ab' ); ?></a></th>
+            <th width=50 ng-class=css_class.total_appointments><a href="" ng-click=reload({sort:'total_appointments'})><?php _e( 'Total appointments', 'ab'); ?></a></th>
+            <!--th width=50 ng-class=css_class.payments><a href="" ng-click=reload({sort:'payments'})><?php _e( 'Payments', 'ab'); ?></a></th-->
         </tr>
         </thead>
         <tbody>
@@ -37,12 +38,12 @@
                 <span ng-show=customer.errors.name.required><?php _e( 'Required', 'ab' ) ?></span>
                 <input type="text" ng-model=customer.name ui-event="{blur:'saveCustomer(customer)'}" ng-show=customer.edit_name focus-me=customer.edit_name required class="value ab-value" />
             </td>
-            <td>
+            <!--td>
                 <div ng-click="customer.edit_wp_user = true" ng-hide=customer.edit_wp_user class=displayed-value>{{customer.wp_user.display_name}}</div>
                 <select ng-model="customer.wp_user" ng-options="wp_user as wp_user.display_name for wp_user in dataSource.wp_users" ui-event="{blur:'saveCustomer(customer)'}"  ng-show=customer.edit_wp_user focus-me=customer.edit_wp_user >
                     <option value=""></option>
                 </select>
-            </td>
+            </td-->
             <td class="ab-phone">
                 <div ng-click="customer.edit_phone = true" ng-hide=customer.edit_phone class=displayed-value>{{customer.phone}}</div>
                 <input type="text" ng-model=customer.phone ui-event="{blur:'saveCustomer(customer)'}" ng-show=customer.edit_phone focus-me=customer.edit_phone class="value ab-value" />
@@ -50,6 +51,10 @@
             <td>
                 <div ng-click="customer.edit_email = true" ng-hide=customer.edit_email class=displayed-value>{{customer.email}}</div>
                 <input type="text" ng-model=customer.email ui-event="{blur:'saveCustomer(customer)'}" ng-show=customer.edit_email focus-me=customer.edit_email class="value ab-value" />
+            </td>
+            <td>
+                <div ng-click="customer.edit_address = true" ng-hide=customer.edit_address class=displayed-value>{{customer.address}}</div>
+                <input type="text" ng-model=customer.address ui-event="{blur:'saveCustomer(customer)'}" ng-show=customer.edit_address focus-me=customer.edit_address class="value ab-value" />
             </td>
             <td>
                 <div ng-click="customer.edit_notes = true" ng-hide=customer.edit_notes class=displayed-value ng-bind-html="customer.notes | nl2br"></div>
@@ -61,9 +66,9 @@
             <td>
                 <div ng-model=customer.total_appointments class=displayed-value>{{customer.total_appointments}}</div>
             </td>
-            <td>
+            <!--td>
                 <div ng-model=customer.payments class=displayed-value>{{customer.payments}}</div>
-            </td>
+            </td-->
             <td><a href="javascript:void(0)" ng-click="deleteCustomer(customer)" role="button" class="btn btn-danger" id="{{customer.id}}" name="customer_delete"><?php _e( 'Delete', 'ab' ) ?></a></td>
         </tr>
         <tr ng-hide="dataSource.customers.length || loading"><td colspan=6><?php _e( 'No customers', 'ab' ); ?></td></tr>

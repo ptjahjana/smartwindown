@@ -18,7 +18,7 @@
 .ab-active { background-color: #ccc; }
 .ab-content form { margin: 0; }
 .wp-admin select,
-.wp-admin input { width: 200px; }
+.wp-admin input { width: 100%; }
 ul.wp-submenu { margin: 0; }
 input[type='text'],
 input[type='number'],

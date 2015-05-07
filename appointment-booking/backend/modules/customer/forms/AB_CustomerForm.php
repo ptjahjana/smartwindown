@@ -21,6 +21,7 @@ class AB_CustomerForm extends AB_Form {
             'wp_user_id',
             'phone',
             'email',
+            'address',
             'notes'
         ));
     }

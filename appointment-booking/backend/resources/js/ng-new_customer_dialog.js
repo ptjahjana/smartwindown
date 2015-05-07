@@ -19,7 +19,8 @@ angular.module('newCustomerDialog', []).directive('newCustomerDialog', function(
           wp_user_id : '',
           name       : '',
           phone      : '',
-          email      : ''
+          email      : '',
+          address    : ''
         };
         // Custom fields.
         element.find('.ab-custom-field').val('');

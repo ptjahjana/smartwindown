@@ -12,6 +12,7 @@
                     wp_user_id : null,
                     phone      : null,
                     email      : null,
+                    address      : null,
                     notes      : null
                 }
             },
@@ -71,6 +72,7 @@
             wp_user            : '',
             phone              : '',
             email              : '',
+            address              : '',
             notes              : '',
             last_appointment   : '',
             total_appointments : '',
@@ -94,6 +96,7 @@
                         wp_user            : '',
                         phone              : '',
                         email              : '',
+                        address              : '',
                         notes              : '',
                         last_appointment   : '',
                         total_appointments : '',
@@ -132,6 +135,7 @@
             customer.edit_wp_user = false;
             customer.edit_phone   = false;
             customer.edit_email   = false;
+            customer.edit_address   = false;
             customer.edit_notes   = false;
             customer.errors       = {};
 
@@ -146,6 +150,7 @@
                     name       : customer.name,
                     phone      : customer.phone,
                     email      : customer.email,
+                    address      : customer.address,
                     notes      : customer.notes
                 },
                 dataType : 'json',

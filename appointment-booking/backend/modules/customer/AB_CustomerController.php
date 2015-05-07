@@ -64,7 +64,7 @@ class AB_CustomerController extends AB_Controller
         );
 
         $page   = intval( $this->getParameter( 'page' ) );
-        $sort   = in_array( $this->getParameter( 'sort' ), array( 'name', 'phone', 'email', 'notes', 'last_appointment', 'total_appointments', 'payments', 'wp_user' ) )
+        $sort   = in_array( $this->getParameter( 'sort' ), array( 'name', 'phone', 'email', 'address', 'notes', 'last_appointment', 'total_appointments', 'payments', 'wp_user' ) )
             ? $this->getParameter( 'sort' ) : 'name';
         $order  = in_array( $this->getParameter( 'order' ), array( 'asc', 'desc' ) ) ? $this->getParameter( 'order' ) : 'asc';
         $filter = $wpdb->_real_escape( $this->getParameter( 'filter' ) );
@@ -91,7 +91,7 @@ class AB_CustomerController extends AB_Controller
 
             // WHERE
             if ( $filter !== '' ) {
-                $query .= " WHERE `c`.`name` LIKE '%{$filter}%' OR `c`.`phone` LIKE '%{$filter}%' OR `c`.`email` LIKE '%{$filter}%'";
+                $query .= " WHERE `c`.`name` LIKE '%{$filter}%' OR `c`.`phone` LIKE '%{$filter}%' OR `c`.`email` LIKE '%{$filter}%' OR `c`.`address` LIKE '%{$filter}%'";
             }
             // GROUP BY
             $query .= ' GROUP BY `c`.`id`';
@@ -151,11 +151,13 @@ class AB_CustomerController extends AB_Controller
                         'wp_user_id' => $customer->wp_user_id,
                         'phone'   => $customer->phone,
                         'email'   => $customer->email,
+                        'address'   => $customer->address,
                         'notes'   => $customer->notes,
                         'jsonString' => json_encode( array(
                             'name'  => $customer->name,
                             'phone' => $customer->phone,
                             'email' => $customer->email,
+                            'address' => $customer->address,
                             'notes' => $customer->notes
                         ) )
                     );

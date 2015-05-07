@@ -13,6 +13,7 @@ class AB_Customer extends AB_Entity
         'name'       => array( 'format' => '%s', 'default' => '' ),
         'phone'      => array( 'format' => '%s', 'default' => '' ),
         'email'      => array( 'format' => '%s', 'default' => '' ),
+        'address'      => array( 'format' => '%s', 'default' => '' ),
         'notes'      => array( 'format' => '%s', 'default' => '' ),
     );
 
