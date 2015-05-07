@@ -12,7 +12,7 @@
 
             <fieldset>
                 <legend><?php _e( 'Personal Information', 'ab' ) ?></legend>
-                <div class="control-group">
+                <!--div class="control-group">
                     <label><?php _e( 'User' , 'ab' ) ?></label>
                     <select ng-model="form.wp_user_id">
                         <option value=""></option>
@@ -22,7 +22,7 @@
                             </option>
                         <?php endforeach ?>
                     </select>
-                </div>
+                </div-->
                 <div class="control-group">
                     <label><?php _e( 'Name' , 'ab' ) ?></label>
                     <input type="text" ng-model="form.name" />
@@ -35,6 +35,10 @@
                 <div class="control-group">
                     <label><?php _e( 'Email' , 'ab' ) ?></label>
                     <input type="text"  ng-model=form.email />
+                </div>
+                <div class="control-group">
+                    <label><?php _e( 'Address' , 'ab' ) ?></label>
+                    <input type="text"  ng-model=form.address />
                 </div>
                 <div class="control-group">
                     <label><?php _e( 'Notes' , 'ab' ) ?></label>

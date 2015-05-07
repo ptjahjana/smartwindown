@@ -352,6 +352,7 @@ class AB_Installer {
                 `name`       VARCHAR(255) NOT NULL DEFAULT '',
                 `phone`      VARCHAR(255) NOT NULL DEFAULT '',
                 `email`      VARCHAR(255) NOT NULL DEFAULT '',
+                `address`      VARCHAR(255) NOT NULL DEFAULT '',
                 `notes`      TEXT NOT NULL DEFAULT ''
             ) ENGINE = INNODB
             DEFAULT CHARACTER SET = utf8
